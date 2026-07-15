@@ -473,5 +473,17 @@ if (listActionSelect) {
             priceInput.disabled = true;
             priceInput.value = "";
         } else {
- 
+            group.style.opacity = "1";
+            priceInput.disabled = false;
+        }
+    });
+}
 
+/* ==========================================
+   ADMINISTRATIVE STAFF PANEL CONTROLLER
+   ========================================= */
+function renderStaffDashboard() {
+    document.getElementById("staffUsersCount").innerText = "14 Accounts Verified";
+    document.getElementById("staffListingsCount").innerText = mockListings.length;
+    document.getElementById("staffEscrowsCount").innerText = "4 Handshakes";
+}
