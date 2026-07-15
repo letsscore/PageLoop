@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PageLoop - Academic Marketplace & Exchange</title>
+    <title>PageLoop - Sell, Buy, & Donate Academic Materials</title>
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,217 +11,289 @@
 </head>
 <body>
 
-    <!-- Onboarding / Registration Screen -->
-    <div class="auth-screen" id="authScreen">
-        <div class="auth-card">
-            <div class="auth-header">
-                <div class="logo"><i class="fa-solid fa-book-open-reader"></i> Page<span>Loop</span></div>
-                <h2>Verify Your Identity & Intent</h2>
-                <p>Create your verified account to enter the ecosystem.</p>
+    <!-- Dynamic Colorful Education Hero & Informational Section -->
+    <section class="info-hero">
+        <div class="glow-orb" id="orb1"></div>
+        <div class="glow-orb" id="orb2"></div>
+        <div class="hero-container">
+            <div class="brand">
+                <i class="fa-solid fa-book-open-reader main-logo-icon"></i>
+                <h1>Page<span>Loop</span></h1>
             </div>
+            <h2>How PageLoop Empowers Your Educational Journey</h2>
+            <p class="hero-subtitle">We bridge the gap between resource abundance and structural academic needs. Save money, share knowledge, and promote environmental sustainability.</p>
             
-            <form id="onboardingForm">
+            <div class="benefit-cards">
+                <div class="benefit-card">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <h3>Academic Relief</h3>
+                    <p>Get expensive school, college, and university textbooks at a fraction of their retail cost.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fa-solid fa-recycle"></i>
+                    <h3>Green Exchange</h3>
+                    <p>Keep physical notes, guides, and reference material in circulation instead of letting them end up in landfills.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                    <h3>Donate or Earn</h3>
+                    <p>Easily donate reference books for free or list premium handwritten materials to earn back your investment.</p>
+                </div>
+            </div>
+
+            <!-- Interactive 3D Rotating Quote Component -->
+            <div class="quote-3d-viewport">
+                <div class="quote-3d-card" id="quoteCard">
+                    <i class="fa-solid fa-quote-left quote-icon"></i>
+                    <p id="quoteText">"Education is the most powerful weapon which you can use to change the world."</p>
+                    <span id="quoteAuthor">- Nelson Mandela</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Multi-Role Gatekeeper (Onboarding, Login & Registrations) -->
+    <section class="auth-wrapper" id="authSection">
+        <div class="auth-tabs">
+            <button class="auth-tab-btn active" data-role="buyer">Buyer Panel</button>
+            <button class="auth-tab-btn" data-role="seller">Seller Panel</button>
+            <button class="auth-tab-btn" data-role="staff">Staff Portal</button>
+        </div>
+
+        <!-- Buyer & Seller Unified Signup / Login Form -->
+        <div class="auth-form-card" id="userFormContainer">
+            <h3 id="formTitle">Buyer Registration & Access Gateway</h3>
+            <p class="form-desc">Verify your credentials to enter your role-specific dashboard.</p>
+            
+            <form id="gatekeeperForm">
                 <div class="form-row">
                     <div class="form-group">
                         <label><i class="fa-solid fa-user"></i> Full Name</label>
-                        <input type="text" id="userName" required placeholder="John Doe">
+                        <input type="text" id="regName" placeholder="e.g. Abidur Hussain" required>
                     </div>
                     <div class="form-group">
                         <label><i class="fa-solid fa-calendar"></i> Date of Birth</label>
-                        <input type="date" id="userDob" required>
+                        <input type="date" id="regDob" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label><i class="fa-solid fa-phone"></i> Phone Number</label>
-                        <div class="otp-input-group">
-                            <input type="tel" id="userPhone" placeholder="9876543210" required>
-                            <button type="button" class="btn btn-sm btn-dark" id="sendOtpBtn">Send OTP</button>
+                        <div class="input-action-group">
+                            <input type="tel" id="regPhone" placeholder="7002137940" required>
+                            <button type="button" class="btn btn-dark btn-sm" id="btnRequestOtp">Send OTP</button>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label><i class="fa-solid fa-lock"></i> Enter OTP</label>
-                        <input type="text" id="userOtp" placeholder="XXXX" disabled required>
+                        <label><i class="fa-solid fa-shield-halved"></i> Verification OTP</label>
+                        <input type="text" id="regOtp" placeholder="Enter SMS OTP Code" disabled required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label><i class="fa-solid fa-location-dot"></i> PIN Code</label>
-                        <input type="text" id="userPin" placeholder="700001" required>
+                        <input type="text" id="regPin" placeholder="700001" required>
                     </div>
                     <div class="form-group">
-                        <label><i class="fa-solid fa-briefcase"></i> Status</label>
-                        <select id="userStatus" required>
+                        <label><i class="fa-solid fa-graduation-cap"></i> Academic Status</label>
+                        <select id="regStatus" required>
                             <option value="Student">Student</option>
-                            <option value="Professional">Professional</option>
+                            <option value="Professional">Academic Professional</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label><i class="fa-solid fa-shuffle"></i> Primary Intent</label>
-                    <select id="userIntent" required>
-                        <option value="buy">I want to Buy Items</option>
-                        <option value="sell">I want to Sell / Donate Items</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-block" id="enterMarketBtn">Verify & Enter Marketplace</button>
+                <button type="submit" class="btn btn-primary btn-block" id="btnSubmitAuth">Authenticate Secure Access</button>
             </form>
         </div>
-    </div>
 
-    <!-- Main Marketplace View (Hidden until Registration) -->
-    <div class="app-layout hidden" id="mainApp">
-        
-        <!-- Navigation Bar -->
+        <!-- Staff Direct Login Access Portal -->
+        <div class="auth-form-card hidden" id="staffFormContainer">
+            <h3>Staff Internal Administration Log In</h3>
+            <p class="form-desc">Internal database supervision operations authorization.</p>
+            <form id="staffLoginForm">
+                <div class="form-group">
+                    <label>Staff ID Identifier</label>
+                    <input type="text" id="staffId" placeholder="PL-ADMIN-99" required>
+                </div>
+                <div class="form-group">
+                    <label>System Access Password</label>
+                    <input type="password" id="staffPassword" value="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Authorize Staff View</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Role-Based Application Views Wrapper -->
+    <div class="dashboard-shell hidden" id="dashboardShell">
         <header class="navbar">
             <div class="nav-container">
-                <a href="#" class="logo">
-                    <i class="fa-solid fa-book-open-reader"></i>
-                    <span>Page<span>Loop</span></span>
-                </a>
-                <div class="user-badge-nav">
-                    <span id="navUserBadge"><i class="fa-solid fa-circle-user"></i> Loading...</span>
+                <div class="logo"><i class="fa-solid fa-book-open-reader"></i> Page<span>Loop</span></div>
+                <div class="user-pill" id="userPill">
+                    <span id="pillName">John Doe</span>
+                    <span class="badge" id="pillRole">Role</span>
                 </div>
-                <nav class="nav-menu">
-                    <button class="btn btn-primary" id="openListModalBtn">
-                        <i class="fa-solid fa-plus"></i> Create New Listing
-                    </button>
-                </nav>
+                <button class="btn btn-dark btn-sm" id="logoutBtn"><i class="fa-solid fa-power-off"></i> Exit Session</button>
             </div>
         </header>
 
-        <!-- Dynamic Category Filter Board -->
-        <section class="mega-filters">
-            <div class="filter-wrapper">
-                <h3>Select Transaction Intent</h3>
-                <div class="intent-tabs">
-                    <button class="intent-btn active" data-intent="sell">Buy / Market Listings</button>
-                    <button class="intent-btn" data-intent="donate">Donations (Free Books & Notes)</button>
+        <!-- ================= BUYER VIEWPORT ================= -->
+        <main class="container hidden" id="buyerView">
+            <div class="viewport-banner">
+                <h2>Live Bookstore Marketplace</h2>
+                <p>Welcome, Buyer. You have full browsing privileges. (Note: Only 1 purchase allowed per login session).</p>
+            </div>
+            
+            <div class="market-categories">
+                <button class="cat-btn active" data-type="all">All Items</button>
+                <button class="cat-btn" data-type="book">Books Only</button>
+                <button class="cat-btn" data-type="notes">Notes Only</button>
+            </div>
+
+            <div class="flipkart-grid" id="marketGrid">
+                <!-- Injected via JS -->
+            </div>
+        </main>
+
+        <!-- ================= SELLER VIEWPORT ================= -->
+        <main class="container hidden" id="sellerView">
+            <div class="viewport-banner">
+                <h2>Seller Console</h2>
+                <p>You can create a new listing here. (Note: Only 1 active sale can be listed per login session).</p>
+            </div>
+
+            <div class="seller-layout">
+                <div class="seller-card-form">
+                    <h3>List Your Book or Notes</h3>
+                    <form id="sellerListForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Action Model</label>
+                                <select id="listAction" required>
+                                    <option value="sell">Sell (Set Price)</option>
+                                    <option value="donate">Donate (Free)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Format Type</label>
+                                <select id="listType" required>
+                                    <option value="book">Book</option>
+                                    <option value="notes">Handwritten Notes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Target Stream / Tier</label>
+                                <select id="listTier" required>
+                                    <option value="School">School Level</option>
+                                    <option value="College">College Level</option>
+                                    <option value="University">University Level</option>
+                                    <option value="Competitive">Competitive Examinations</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="listPriceGroup">
+                                <label>Set Price (₹)</label>
+                                <input type="number" id="listPrice" min="1" placeholder="e.g. 150">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Title / Description Name</label>
+                            <input type="text" id="listTitle" placeholder="e.g. Organic Chemistry Volume 1, AP Calculus Guide" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fa-solid fa-image"></i> First/Cover Page Image (JPG Only)</label>
+                                <input type="file" id="imgCover" accept="image/jpeg, image/jpg" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fa-solid fa-file-invoice"></i> Content/Index Page Image (JPG Only)</label>
+                                <input type="file" id="imgContent" accept="image/jpeg, image/jpg" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Publish Listing</button>
+                    </form>
                 </div>
-                
-                <h3>Categories & Formats</h3>
-                <div class="matrix-filters">
-                    <div class="filter-group">
-                        <span>Format:</span>
-                        <button class="type-btn active" data-type="all">All</button>
-                        <button class="type-btn" data-type="book">Books</button>
-                        <button class="type-btn" data-type="notes">Notes</button>
-                    </div>
-                    <div class="filter-group">
-                        <span>Academic Tier:</span>
-                        <button class="tier-btn active" data-tier="all">All Levels</button>
-                        <button class="tier-btn" data-tier="School">School</button>
-                        <button class="tier-btn" data-tier="College">College</button>
-                        <button class="tier-btn" data-tier="University">University</button>
-                        <button class="tier-btn" data-tier="Competitive">Competitive Exams</button>
+
+                <div class="seller-notifications">
+                    <h3>Escrow Pending Transaction Actions</h3>
+                    <div id="sellerNotificationList">
+                        <!-- Pending payment requests for sellers will render here -->
                     </div>
                 </div>
             </div>
-        </section>
+        </main>
 
-        <!-- Main Marketplace Section -->
-        <main class="container">
-            <div class="market-layout">
-                <!-- Search & Results Title -->
-                <div class="market-header">
-                    <h2>Live Marketplace Grid</h2>
-                    <p id="listingsCount">Showing all active items</p>
+        <!-- ================= STAFF VIEWPORT ================= -->
+        <main class="container hidden" id="staffView">
+            <div class="viewport-banner" style="background: linear-gradient(135deg, #1e293b, #475569);">
+                <h2>Staff Command Center</h2>
+                <p>Real-time system transaction oversight, listing checks, and user database activity monitoring.</p>
+            </div>
+
+            <div class="staff-dashboard-grid">
+                <div class="staff-card">
+                    <h3>Overall Metrics</h3>
+                    <div class="metric-list">
+                        <div class="metric-item"><span>Total Active Users:</span> <strong id="staffUsersCount">0</strong></div>
+                        <div class="metric-item"><span>Market Listings:</span> <strong id="staffListingsCount">0</strong></div>
+                        <div class="metric-item"><span>Completed Escrows:</span> <strong id="staffEscrowsCount">0</strong></div>
+                    </div>
                 </div>
 
-                <!-- Products Grid (Flipkart Style) -->
-                <div class="flipkart-grid" id="itemsGrid">
-                    <!-- Dynamic product layouts injected here -->
+                <div class="staff-card span-two">
+                    <h3>Live System Logs & Activity Ledger</h3>
+                    <div class="audit-log" id="staffAuditLogs">
+                        <!-- Simulated backend real-time logging -->
+                    </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- Multi-Functional Item Listing Modal (Sell/Donate) -->
-    <div class="modal-overlay" id="listModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>List an Item for the Ecosystem</h3>
-                <button class="close-btn" id="closeModalBtn">&times;</button>
-            </div>
-            <form id="listingForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Transaction Format</label>
-                        <select id="listAction" required>
-                            <option value="sell">Sell (Commercial)</option>
-                            <option value="donate">Donate (Free Exchange)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Item Type</label>
-                        <select id="listItemType" required>
-                            <option value="book">Book</option>
-                            <option value="notes">Notes</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Academic Category</label>
-                        <select id="listCategory" required>
-                            <option value="School">School Level</option>
-                            <option value="College">College Level</option>
-                            <option value="University">University Level</option>
-                            <option value="Competitive">Competitive Examinations</option>
-                        </select>
-                    </div>
-                    <div class="form-group" id="priceInputGroup">
-                        <label>Set Base Price (₹)</label>
-                        <input type="number" id="listPrice" min="1" placeholder="Enter base price">
-                    </div>
-                </div>
-
-                <!-- Dynamic Real-Time Fee Breakdown Notice -->
-                <div class="fee-notice-box" id="feeNotice">
-                    <p><i class="fa-solid fa-circle-info"></i> Platform Fee Structure applies.</p>
-                </div>
-
-                <div class="form-group">
-                    <label>Title / Name</label>
-                    <input type="text" id="listTitle" placeholder="e.g., HC Verma Physics Vol 1 / UPSC History Hand Written Notes" required>
-                </div>
-
-                <!-- Mandatory Image Document Upload Previews -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label><i class="fa-solid fa-image"></i> Cover Page Image</label>
-                        <input type="file" id="imgCover" accept="image/jpeg, image/jpg" required>
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fa-solid fa-file-lines"></i> Content / Index Page</label>
-                        <input type="file" id="imgContent" accept="image/jpeg, image/jpg" required>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-block">Launch Listing Live</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Integrated Checkout Modal -->
+    <!-- Integrated Double-Sided Gateway Escrow Modal -->
     <div class="modal-overlay" id="checkoutModal">
         <div class="modal">
             <div class="modal-header">
-                <h3>Secure Gateway Checkout</h3>
+                <h3>Escrow Gateway Clearing Desk</h3>
                 <button class="close-btn" id="closeCheckoutBtn">&times;</button>
             </div>
-            <div class="checkout-summary" id="checkoutSummary">
-                <!-- Injected via JavaScript dynamically -->
+            <div class="checkout-summary" id="checkoutDetails">
+                <!-- Dynamic payment states injection -->
             </div>
-            <button class="btn btn-primary btn-block" id="payNowBtn"><i class="fa-solid fa-shield-halved"></i> Authorize Direct Payment</button>
+            <button class="btn btn-primary btn-block" id="btnGatewayAction">Pay Platform Charge Now</button>
         </div>
     </div>
 
+    <!-- Global Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>PageLoop Ecosystem</h3>
+                <p>A smart, secure recycling system designed specifically for reading books and notes. Helping students learn affordably.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Support & Inquiries</h4>
+                <p><i class="fa-solid fa-phone"></i> Contact Support: <a href="tel:7002137940" class="tel-link">7002137940</a></p>
+                <p><i class="fa-solid fa-envelope"></i> Email: help@pageloop.org</p>
+            </div>
+            <div class="footer-policy">
+                <h4>Privacy Policy Digest</h4>
+                <p>We take digital security seriously. Standard student/academic data is stored using secure browser hashes. Hand-shake credentials and listing verification data are audited strictly under verified student compliance codes. None of your dynamic notes or reference files are distributed outside verified transactions.</p>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <p class="copyright">&copy; 2026 PageLoop Marketplace. Built for sustainable learning. All rights reserved.</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
-</html>
+                            </html>
+                        
