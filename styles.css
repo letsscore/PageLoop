@@ -1,0 +1,151 @@
+:root {
+    --primary: #0284c7;        /* Clean Professional Blue */
+    --primary-dark: #0369a1;
+    --success: #16a34a;
+    --donate: #8b5cf6;         /* Purple Theme for Philanthropy aspect */
+    --dark: #0f172a;
+    --light: #f8fafc;
+    --border: #cbd5e1;
+    --font: 'Plus Jakarta Sans', sans-serif;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font);
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+.hidden { display: none !important; }
+
+/* Buttons & Elements */
+.btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-dark { background: var(--dark); color: white; }
+.btn-sm { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+.btn-block { width: 100%; display: block; margin-top: 1rem; }
+
+/* Onboarding Screen Layout */
+.auth-screen {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #e0f2fe 0%, #f8fafc 100%);
+    padding: 1.5rem;
+}
+.auth-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    width: 100%;
+    max-width: 650px;
+}
+.auth-header { text-align: center; margin-bottom: 2rem; }
+.logo { font-size: 1.8rem; font-weight: 800; color: var(--dark); text-decoration: none; }
+.logo span { color: var(--primary); }
+
+/* Form Infrastructure */
+.form-group { margin-bottom: 1.2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; color: #475569; }
+input, select {
+    width: 100%; padding: 0.65rem; border: 1px solid var(--border);
+    border-radius: 8px; font-family: inherit; outline: none;
+}
+input:focus, select:focus { border-color: var(--primary); }
+.otp-input-group { display: flex; gap: 0.5rem; }
+
+/* Main App Navbar */
+.navbar { background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 50; }
+.nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; }
+#navUserBadge { background: #e0f2fe; color: var(--primary-dark); padding: 0.5rem 1rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem;}
+
+/* Mega Categorization Filter Panels */
+.mega-filters { background: white; border-bottom: 1px solid #e2e8f0; padding: 1.5rem 0; }
+.filter-wrapper { max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; }
+.mega-filters h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; margin-bottom: 0.75rem; }
+.intent-tabs { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+.intent-btn {
+    flex: 1; padding: 1rem; border-radius: 12px; border: 2px solid #e2e8f0;
+    font-family: inherit; font-weight: 700; font-size: 1rem; cursor: pointer; background: white; transition: all 0.2s;
+}
+.intent-btn.active { border-color: var(--primary); color: var(--primary); background: #f0f9ff; }
+.matrix-filters { display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; }
+.filter-group { display: flex; gap: 0.5rem; align-items: center; }
+.filter-group span { font-weight: 600; font-size: 0.85rem; color: #475569; }
+
+.type-btn, .tier-btn {
+    border: 1px solid var(--border); background: white; padding: 0.4rem 0.8rem;
+    border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 0.85rem; font-weight: 500;
+}
+.type-btn.active, .tier-btn.active { background: var(--dark); color: white; border-color: var(--dark); }
+
+/* Main Marketplace (Flipkart Structural Grid layout) */
+.container { max-width: 1400px; margin: 0 auto; padding: 2rem 1.5rem; }
+.market-header { margin-bottom: 1.5rem; }
+.flipkart-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Flipkart-Style E-Commerce Cards */
+.fk-card {
+    background: white; border: 1px solid #e2e8f0; border-radius: 8px;
+    overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.2s;
+}
+.fk-card:hover { box-shadow: var(--shadow); }
+.fk-img-box { position: relative; height: 220px; background: #f1f5f9; text-align: center; }
+.fk-img-box img { height: 100%; width: 100%; object-fit: cover; }
+.fk-badge {
+    position: absolute; top: 8px; left: 8px; padding: 0.2rem 0.5rem;
+    font-size: 0.7rem; font-weight: 700; border-radius: 4px; color: white;
+}
+.badge-sell { background: var(--success); }
+.badge-donate { background: var(--donate); }
+
+.fk-details { padding: 1rem; display: flex; flex-direction: column; flex-grow: 1; }
+.fk-tier { font-size: 0.75rem; text-transform: uppercase; color: #64748b; font-weight: 700; margin-bottom: 0.25rem;}
+.fk-title { font-size: 0.95rem; font-weight: 700; line-height: 1.3; height: 2.6rem; overflow: hidden; color: var(--dark); }
+.fk-pricing-bar { display: flex; align-items: baseline; gap: 0.5rem; margin: 0.75rem 0; }
+.fk-price { font-size: 1.3rem; font-weight: 800; color: var(--dark); }
+.fk-fee-tag { font-size: 0.75rem; color: #64748b; }
+.fk-meta-footer { border-top: 1px solid #f1f5f9; padding-top: 0.75rem; margin-top: auto; font-size: 0.75rem; color: #64748b; }
+
+/* Modals System */
+.modal-overlay {
+    position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(15,23,42,0.5);
+    backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center;
+    z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+.modal-overlay.active { opacity: 1; pointer-events: auto; }
+.modal { background: white; padding: 2rem; border-radius: 12px; width: 100%; max-width: 550px; max-height: 90vh; overflow-y: auto; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; }
+.close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748b;}
+
+.fee-notice-box { background: #f0f9ff; padding: 0.75rem; border-radius: 6px; border-left: 4px solid var(--primary); font-size: 0.8rem; margin-bottom: 1rem; color: var(--primary-dark); }
+.checkout-summary { background: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 1.5rem;}
+.checkout-summary h4 { margin-bottom: 0.5rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; }
+.checkout-row { display: flex; justify-content: space-between; margin-bottom: 0.4rem; font-size: 0.9rem;}
+.checkout-total { font-weight: 800; font-size: 1.1rem; border-top: 1px dashed var(--border); padding-top: 0.5rem; margin-top: 0.5rem; }
+
+@media(max-width: 768px) {
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .matrix-filters { gap: 1rem; }
+}
+
