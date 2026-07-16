@@ -1,58 +1,345 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PageLoop - Peer-to-Peer Academic Material Exchange</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-weight/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PageLoop - Access Gateway</title>
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --primary-hover: #4338CA;
+      --bg-light: #F9FAFB;
+      --text-dark: #111827;
+      --text-muted: #4B5563;
+      --border: #E5E7EB;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      max-width: 450px;
+    }
+
+    h1 {
+      font-size: 38px;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.5;
+      margin-bottom: 35px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 15px;
+      background-color: #F8FAFC;
+      transition: all 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      background-color: #fff;
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    }
+
+    /* Row containing Email field and Send Button */
+    .otp-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .otp-row .email-input-container {
+      flex: 1;
+    }
+
+    .send-btn {
+      background: #F1F5F9;
+      color: var(--text-dark);
+      border: 1px solid var(--border);
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      height: 47px;
+    }
+
+    .send-btn:hover {
+      background: #E2E8F0;
+    }
+
+    .send-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.2s;
+    }
+
+    .submit-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .feedback {
+      font-size: 13px;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .feedback.success {
+      color: #16A34A;
+      display: block;
+    }
+
+    .feedback.error {
+      color: #DC2626;
+      display: block;
+    }
+
+    .footer-text {
+      text-align: center;
+      font-size: 12px;
+      color: #94A3B8;
+      margin-top: 30px;
+      line-height: 1.4;
+    }
+  </style>
 </head>
 <body>
-    <header class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <span class="logo-icon">🌀</span> PageLoop
-            </div>
-            <div class="nav-actions">
-                <a href="login.html" class="btn btn-primary">Enter Platform</a>
-            </div>
-        </div>
-    </header>
 
-    <main class="landing-hero">
-        <div class="container text-center">
-            <span class="badge-tag">Academic Recycling Initiative</span>
-            <h2>Our Primary Aim</h2>
-            <p class="lead-text">
-                PageLoop provides students with a secure, localized ecosystem to directly exchange pre-owned textbooks, 
-                competitive exam notes, and high-quality study materials—entirely eliminating middleman commissions. 
-                Our platform minimizes academic costs while actively promoting green resource recycling.
-            </p>
-        </div>
-    </main>
+  <div class="card">
+    <h1>Access Gateway</h1>
+    <div class="subtitle">Verify your identity securely to enter your personalized dashboard.</div>
 
-    <section class="objectives-section">
-        <div class="container">
-            <h3 class="section-title">Strategic Objectives</h3>
-            <div class="objectives-grid">
-                <div class="objective-card">
-                    <div class="num">01</div>
-                    <h4>Affordable Education</h4>
-                    <p>Providing students with access to premium, curated study materials at nominal pricing, bypassing expensive commercial channels.</p>
-                </div>
-                <div class="objective-card">
-                    <div class="num">02</div>
-                    <h4>Sustainable Recycling</h4>
-                    <p>Giving older academic guides and reference papers a second life, saving valuable resources from going to waste.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <form id="loginForm">
+      <!-- Account Type -->
+      <div class="form-group">
+        <label for="accountType">Account Type / Destination</label>
+        <select id="accountType">
+          <option value="Buyer Portal">Buyer Portal</option>
+          <option value="Seller Portal">Seller Portal</option>
+        </select>
+      </div>
 
-    <footer class="main-footer text-center">
-        <p>&copy; 2026 PageLoop. All Rights Reserved. Empowering students, saving the planet.</p>
-    </footer>
+      <!-- Full Name & Date of Birth -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" placeholder="e.g. Abidur" required>
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" required>
+        </div>
+      </div>
+
+      <!-- Email Address & OTP Send Row -->
+      <div class="form-group">
+        <label>Email Address</label>
+        <div class="otp-row">
+          <div class="email-input-container">
+            <input type="email" id="email" placeholder="name@domain.com" required>
+          </div>
+          <button type="button" id="sendOtpBtn" class="send-btn">Send OTP</button>
+        </div>
+        <div id="otpFeedback" class="feedback"></div>
+      </div>
+
+      <!-- Verification Code (OTP) & PIN Code -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="otpInput">Verification OTP</label>
+          <input type="text" id="otpInput" placeholder="Enter SMS" maxlength="6" required>
+        </div>
+        <div class="form-group">
+          <label for="pinCode">PIN Code</label>
+          <input type="text" id="pinCode" placeholder="e.g. 785640" required>
+        </div>
+      </div>
+
+      <!-- Academic Status -->
+      <div class="form-group">
+        <label for="academicStatus">Academic Status</label>
+        <select id="academicStatus">
+          <option value="Student">Student</option>
+          <option value="Professional">Professional</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <!-- Authenticate Action -->
+      <button type="submit" id="submitBtn" class="submit-btn">Authenticate Secure Access</button>
+      <div id="submitFeedback" class="feedback"></div>
+    </form>
+
+    <div class="footer-text">
+      Authorized access only. Logged activities are tracked for auditing purposes.
+    </div>
+  </div>
+
+  <script>
+    const BACKEND_URL = 'https://pageloop-backend.onrender.com';
+    const sendOtpBtn = document.getElementById('sendOtpBtn');
+    const loginForm = document.getElementById('loginForm');
+    const otpFeedback = document.getElementById('otpFeedback');
+    const submitFeedback = document.getElementById('submitFeedback');
+
+    // 1. Send OTP Event
+    sendOtpBtn.addEventListener('click', async () => {
+      const email = document.getElementById('email').value;
+      const fullName = document.getElementById('fullName').value;
+      const dob = document.getElementById('dob').value;
+      const pinCode = document.getElementById('pinCode').value;
+      const academicStatus = document.getElementById('academicStatus').value;
+      const accountType = document.getElementById('accountType').value;
+
+      if (!email) {
+        showFeedback(otpFeedback, 'Please enter an email address first.', 'error');
+        return;
+      }
+
+      sendOtpBtn.disabled = true;
+      sendOtpBtn.textContent = 'Sending...';
+      showFeedback(otpFeedback, 'Sending OTP to your email...', 'success');
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/send-otp`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, fullName, dob, pinCode, academicStatus, accountType })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          showFeedback(otpFeedback, 'OTP sent successfully! Check your inbox.', 'success');
+          // Start a 60s cooldown on the button
+          let cooldown = 60;
+          const interval = setInterval(() => {
+            cooldown--;
+            sendOtpBtn.textContent = `Resend (${cooldown}s)`;
+            if (cooldown <= 0) {
+              clearInterval(interval);
+              sendOtpBtn.disabled = false;
+              sendOtpBtn.textContent = 'Send OTP';
+            }
+          }, 1000);
+        } else {
+          showFeedback(otpFeedback, data.message || 'Error sending OTP.', 'error');
+          sendOtpBtn.disabled = false;
+          sendOtpBtn.textContent = 'Send OTP';
+        }
+      } catch (err) {
+        showFeedback(otpFeedback, 'Could not reach backend. Verify server is running.', 'error');
+        sendOtpBtn.disabled = false;
+        sendOtpBtn.textContent = 'Send OTP';
+      }
+    });
+
+    // 2. Form Submission / Verification
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const otp = document.getElementById('otpInput').value;
+
+      showFeedback(submitFeedback, 'Verifying your credentials...', 'success');
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/verify-otp`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, otp })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          showFeedback(submitFeedback, 'Authentication successful! Redirecting...', 'success');
+          // Redirect to success dashboard or save local state here:
+          setTimeout(() => {
+            alert('Access Authorized! Welcome to PageLoop.');
+          }, 1000);
+        } else {
+          showFeedback(submitFeedback, data.message || 'Verification failed. Try again.', 'error');
+        }
+      } catch (err) {
+        showFeedback(submitFeedback, 'Server authentication error. Try again later.', 'error');
+      }
+    });
+
+    // Helper function to manage status notifications
+    function showFeedback(element, message, type) {
+      element.textContent = message;
+      element.className = `feedback ${type}`;
+    }
+  </script>
 </body>
     </html>
-
+    
