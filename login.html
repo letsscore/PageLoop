@@ -1,61 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PageLoop Login</title>
-    <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; padding: 20px; background: #f4f4f9; }
-        .card { background: white; padding: 20px; border-radius: 15px; width: 100%; max-width: 400px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        input, select, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #ccc; }
-        button { background: #4F46E5; color: white; border: none; font-weight: bold; cursor: pointer; }
-        .row { display: flex; gap: 10px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PageLoop - Access Gateway</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playpen+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #5C59E8;
+      --bg-color: #F8FAFC;
+      --input-bg: #EBF2FE;
+      --text-dark: #1E293B;
+      --text-muted: #64748B;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      font-family: 'Playpen Sans', cursive, sans-serif;
+    }
+    .card {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    }
+    h1 {
+      font-family: 'Caveat', cursive;
+      font-size: 52px;
+      color: #111827;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 15px;
+      text-align: center;
+      line-height: 1.5;
+      margin-bottom: 35px;
+    }
+    .form-group { margin-bottom: 22px; }
+    .form-row { display: flex; gap: 15px; margin-bottom: 22px; }
+    .form-row .form-group { flex: 1; margin-bottom: 0; }
+    label {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+    input, select {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      background-color: var(--input-bg);
+      color: var(--text-dark);
+      font-family: 'Caveat', cursive;
+      font-size: 20px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    input:focus, select:focus {
+      border-color: var(--primary-color);
+      background-color: #ffffff;
+    }
+    .otp-row { display: flex; gap: 12px; }
+    .otp-row input { flex: 1.3; }
+    .send-btn {
+      flex: 0.7;
+      background: #E2E8F0;
+      border: none;
+      border-radius: 16px;
+      font-family: 'Caveat', cursive;
+      font-size: 22px;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .send-btn:hover { background: #CBD5E1; }
+    .submit-btn {
+      width: 100%;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 18px;
+      font-family: 'Caveat', cursive;
+      font-size: 24px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: opacity 0.2s;
+    }
+    .submit-btn:hover { opacity: 0.9; }
+    .feedback { font-size: 14px; margin-top: 6px; font-weight: 600; display: none; }
+    .feedback.success { color: #16A34A; display: block; }
+    .feedback.error { color: #DC2626; display: block; }
+    
+    .switch-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    .switch-link a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <div class="card">
-        <h2>Access Gateway</h2>
-        <form id="loginForm">
-            <select id="accountType"><option>Buyer Portal</option><option>Seller Portal</option></select>
-            <input type="text" id="fullName" placeholder="Full Name" required>
-            <input type="date" id="dob" required>
-            <div class="row">
-                <input type="email" id="email" placeholder="Email Address" required>
-                <button type="button" id="sendOtpBtn">Send OTP</button>
-            </div>
-            <input type="text" id="otpInput" placeholder="Enter OTP" maxlength="6" required>
-            <input type="text" id="pinCode" placeholder="PIN Code" required>
-            <select id="academicStatus"><option>Student</option><option>Professional</option></select>
-            <button type="submit">Authenticate Secure Access</button>
-        </form>
+
+  <div class="card">
+    <h1 id="gatewayTitle">Access Gateway</h1>
+    <div class="subtitle" id="gatewaySubtitle">Verify your identity securely to enter your personalized dashboard.</div>
+
+    <!-- 1. PUBLIC PORTAL FORM (BUYER/SELLER/STUDENT) -->
+    <form id="publicForm">
+      <div class="form-group">
+        <label>Account Type / Destination</label>
+        <select id="accountType">
+          <option value="Buyer Portal">Buyer Portal</option>
+          <option value="Seller Portal">Seller Portal</option>
+          <option value="Student Portal">Student Portal</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="fullName" placeholder="e.g. Abidur" required>
+        </div>
+        <div class="form-group">
+          <label>Date of Birth</label>
+          <input type="date" id="dob" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <div class="otp-row">
+          <input type="email" id="email" placeholder="name@domain.com" required>
+          <button type="button" id="sendOtpBtn" class="send-btn">Send OTP</button>
+        </div>
+        <div id="otpFeedback" class="feedback"></div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Verification OTP</label>
+          <input type="text" id="otpInput" placeholder="Enter OTP" maxlength="6" required>
+        </div>
+        <div class="form-group">
+          <label>PIN Code</label>
+          <input type="text" id="pinCode" placeholder="e.g. 785640" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Academic Status</label>
+        <select id="academicStatus">
+          <option value="Student">Student</option>
+          <option value="Professional">Professional</option>
+        </select>
+      </div>
+
+      <button type="submit" class="submit-btn">Authenticate Secure Access</button>
+      <div id="publicFeedback" class="feedback"></div>
+    </form>
+
+    <!-- 2. STAFF/ADMIN PORTAL FORM -->
+    <form id="staffForm" style="display: none;">
+      <div class="form-group">
+        <label>System Admin Username</label>
+        <input type="text" id="adminUser" placeholder="Enter username" required>
+      </div>
+      <div class="form-group">
+        <label>Access Key Phrase</label>
+        <input type="password" id="adminPass" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="submit-btn">Authorize Staff Session</button>
+      <div id="staffFeedback" class="feedback"></div>
+    </form>
+
+    <!-- Navigation link to jump roles or go back home -->
+    <div class="switch-link">
+      <a href="#" id="togglePortalBtn">Switch to Staff Portal</a><br><br>
+      <a href="index.html" style="color: #64748B; font-size: 13px;">← Back to Homepage</a>
     </div>
+  </div>
 
-    <script>
-        const API = 'https://pageloop-backend.onrender.com';
+  <script>
+    const BACKEND_URL = 'https://pageloop-backend.onrender.com';
+    
+    const publicForm = document.getElementById('publicForm');
+    const staffForm = document.getElementById('staffForm');
+    const togglePortalBtn = document.getElementById('togglePortalBtn');
+    const gatewayTitle = document.getElementById('gatewayTitle');
+    const gatewaySubtitle = document.getElementById('gatewaySubtitle');
 
-        document.getElementById('sendOtpBtn').onclick = async () => {
-            const data = {
-                email: document.getElementById('email').value,
-                fullName: document.getElementById('fullName').value,
-                dob: document.getElementById('dob').value,
-                pinCode: document.getElementById('pinCode').value,
-                academicStatus: document.getElementById('academicStatus').value,
-                accountType: document.getElementById('accountType').value
-            };
-            const res = await fetch(`${API}/api/send-otp`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)});
-            if((await res.json()).success) alert('OTP Sent!');
-        };
+    // Simple URL parameter check to set initial gateway view
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentRole = urlParams.get('role') === 'staff' ? 'staff' : 'user';
 
-        document.getElementById('loginForm').onsubmit = async (e) => {
-            e.preventDefault();
-            const res = await fetch(`${API}/api/verify-otp`, { 
-                method: 'POST', 
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ email: document.getElementById('email').value, otp: document.getElementById('otpInput').value })
-            });
-            if((await res.json()).success) alert('Access Authorized!');
-            else alert('Invalid OTP');
-        };
-    </script>
+    function updateFormVisibility() {
+      if (currentRole === 'staff') {
+        publicForm.style.display = 'none';
+        staffForm.style.display = 'block';
+        gatewayTitle.textContent = "Staff Terminal";
+        gatewaySubtitle.textContent = "Authorized staff and administrator authentication console.";
+        togglePortalBtn.textContent = "Switch to Student/User Portal";
+      } else {
+        publicForm.style.display = 'block';
+        staffForm.style.display = 'none';
+        gatewayTitle.textContent = "Access Gateway";
+        gatewaySubtitle.textContent = "Verify your identity securely to enter your personalized dashboard.";
+        togglePortalBtn.textContent = "Switch to Staff Portal";
+      }
+    }
+    updateFormVisibility();
+
+    togglePortalBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      currentRole = currentRole === 'staff' ? 'user' : 'staff';
+      updateFormVisibility();
+    });
+
+    // Send OTP to User Email
+    const sendOtpBtn = document.getElementById('sendOtpBtn');
+    const otpFeedback = document.getElementById('otpFeedback');
+
+    sendOtpBtn.addEventListener('click', async () => {
+      const email = document.getElementById('email').value;
+      if (!email) {
+        showFeedback(otpFeedback, 'Email address is required.', 'error');
+        return;
+      }
+
+      sendOtpBtn.disabled = true;
+      sendOtpBtn.textContent = 'Sending...';
+      showFeedback(otpFeedback, 'Sending code to inbox...', 'success');
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/send-otp`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            fullName: document.getElementById('fullName').value,
+            dob: document.getElementById('dob').value,
+            pinCode: document.getElementById('pinCode').value,
+            academicStatus: document.getElementById('academicStatus').value,
+            accountType: document.getElementById('accountType').value
+          })
+        });
+        
+        const data = await response.json();
+        if (data.success) {
+          showFeedback(otpFeedback, 'OTP sent! Check your inbox.', 'success');
+          let cooldown = 60;
+          const interval = setInterval(() => {
+            cooldown--;
+            sendOtpBtn.textContent = `Wait (${cooldown}s)`;
+            if (cooldown <= 0) {
+              clearInterval(interval);
+              sendOtpBtn.disabled = false;
+              sendOtpBtn.textContent = 'Send OTP';
+            }
+          }, 1000);
+        } else {
+          showFeedback(otpFeedback, 'Failed sending OTP. Try again.', 'error');
+          sendOtpBtn.disabled = false;
+          sendOtpBtn.textContent = 'Send OTP';
+        }
+      } catch (err) {
+        showFeedback(otpFeedback, 'Could not connect to service.', 'error');
+        sendOtpBtn.disabled = false;
+        sendOtpBtn.textContent = 'Send OTP';
+      }
+    });
+
+    // Submit Student/User OTP Form
+    const publicFeedback = document.getElementById('publicFeedback');
+    publicForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      showFeedback(publicFeedback, 'Verifying code...', 'success');
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/verify-otp`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: document.getElementById('email').value,
+            otp: document.getElementById('otpInput').value
+          })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          showFeedback(publicFeedback, 'Authorized! Directing...', 'success');
+          alert('Welcome! Access to Portal Authorized.');
+        } else {
+          showFeedback(publicFeedback, 'Invalid OTP or expiration limit reached.', 'error');
+        }
+      } catch (err) {
+        showFeedback(publicFeedback, 'Authentication communication error.', 'error');
+      }
+    });
+
+    // Submit Staff Password Form
+    const staffFeedback = document.getElementById('staffFeedback');
+    staffForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      showFeedback(staffFeedback, 'Verifying Credentials...', 'success');
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/admin-login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: document.getElementById('adminUser').value,
+            password: document.getElementById('adminPass').value
+          })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          showFeedback(staffFeedback, 'Staff session initialized!', 'success');
+          alert('Staff Access Approved!');
+        } else {
+          showFeedback(staffFeedback, 'Access Denied: Invalid Username or Password Key.', 'error');
+        }
+      } catch (err) {
+        showFeedback(staffFeedback, 'Staff service error.', 'error');
+      }
+    });
+
+    function showFeedback(element, message, type) {
+      element.textContent = message;
+      element.className = `feedback ${type}`;
+    }
+  </script>
 </body>
 </html>
