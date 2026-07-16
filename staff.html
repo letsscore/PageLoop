@@ -55,6 +55,59 @@
             </div>
         </main>
     </div>
+    <script>
+  const BACKEND_URL = 'https://pageloop-backend.onrender.com';
+  
+  const loginForm = document.getElementById('staffCredentialLoginForm');
+  const authWrapper = document.getElementById('staffAuthWrapper');
+  const dashboardShell = document.getElementById('staffDashboardShell');
+  const logoutBtn = document.getElementById('staffLogoutBtn');
+
+  // Handle Form Submission
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const username = document.getElementById('staffId').value;
+    const password = document.getElementById('staffPassword').value;
+
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/admin-login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Hide login wrapper and show admin dashboard
+        authWrapper.style.display = 'none';
+        dashboardShell.style.display = 'block';
+        
+        // Optional: Trigger dashboard logs loading here
+      } else {
+        alert('Access Denied: Invalid credentials.');
+      }
+    } catch (err) {
+      // Offline fallback in case of connection issues
+      if (username === 'admin' && password === 'Staff@2026') {
+        authWrapper.style.display = 'none';
+        dashboardShell.style.display = 'block';
+      } else {
+        alert('Database authentication error. Please try again.');
+      }
+    }
+  });
+
+  // Handle Logout Session Termination
+  logoutBtn.addEventListener('click', () => {
+    authWrapper.style.display = 'block';
+    dashboardShell.style.display = 'none';
+    loginForm.reset();
+    window.location.href = 'index.html';
+  });
+            </script>
+    
 </body>
   </html>
 
