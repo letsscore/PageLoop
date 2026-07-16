@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Market - PageLoop</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">🌀 PageLoop <span class="badge-role">Buyer</span></div>
+            <div class="user-profile">
+                <span id="buyerNameBadge" class="username-pill">Verified Buyer</span>
+                <button class="btn btn-dark btn-sm" id="logoutBtn">Log Out</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="market-hero">
+            <h3>Find Curated Study Materials</h3>
+            <p>Negotiate rates directly with local sellers and collect your books without added fees.</p>
+        </section>
+
+        <div class="market-categories">
+            <button class="cat-btn active" data-type="all">All Materials</button>
+            <button class="cat-btn" data-type="notes">Lecture Notes</button>
+            <button class="cat-btn" data-type="book">Textbooks</button>
+        </div>
+
+        <section class="marketplace-wrapper">
+            <div id="marketGrid" class="flipkart-grid">
+                <!-- Dynamically populated via app.js -->
+            </div>
+        </section>
+    </main>
+</body>
+                                                                          </html>
 
