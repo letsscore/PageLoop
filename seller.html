@@ -1,1 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Control Center - PageLoop</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">🌀 PageLoop <span class="badge-role">Seller</span></div>
+            <div class="user-profile">
+                <span id="sellerNameBadge" class="username-pill">Verified Seller</span>
+                <button class="btn btn-dark btn-sm" id="logoutBtn">Log Out</button>
+            </div>
+        </div>
+    </header>
 
+    <main class="container">
+        <div class="seller-layout">
+            <!-- Left Panel: Create Listing -->
+            <section class="seller-card-form">
+                <h3>Post New Material</h3>
+                <p class="section-desc">Create listings to let buyers locate your materials near their area.</p>
+                
+                <form id="listingSubmissionForm">
+                    <div class="form-group">
+                        <label for="itemTitle">Item / Book Title</label>
+                        <input type="text" id="itemTitle" placeholder="e.g. Wave Mechanics & Optics Guide" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="itemType">Category Type</label>
+                            <select id="itemType" required>
+                                <option value="notes">Lecture Notes</option>
+                                <option value="book">Textbook</option>
+                                <option value="guide">Reference Guide</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="academicTier">Academic Level</label>
+                            <select id="academicTier" required>
+                                <option value="School">School Level</option>
+                                <option value="College">College Level</option>
+                                <option value="University">University Level</option>
+                                <option value="Competitive">Competitive Prep</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="itemAction">Listing Action Type</label>
+                            <select id="itemAction" required>
+                                <option value="sell">Sell Directly</option>
+                                <option value="donate">Free Donation / Recycle</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="priceInputGroup">
+                            <label for="basePrice">Base Price (INR)</label>
+                            <input type="number" id="basePrice" min="0" placeholder="e.g. 180">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Publish Listing to Registry</button>
+                </form>
+            </section>
+
+            <!-- Right Panel: Match Escrows -->
+            <aside class="seller-notifications">
+                <h3>Active Matching Alerts</h3>
+                <p class="section-desc">Secured matching requests initiated by buyers for your material.</p>
+                <div id="matchingEscrowsList" class="notification-container">
+                    <p class="no-activity">No current match transactions waiting.</p>
+                </div>
+            </aside>
+        </div>
+    </main>
+</body>
+  </html>
+                                  
