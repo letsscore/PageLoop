@@ -3,381 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PageLoop - Chat, Bargain, and Securely Exchange Academic Materials</title>
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>PageLoop - Peer-to-Peer Academic Material Exchange</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-weight/6.4.0/css/all.min.css">
 </head>
 <body>
-
-    <!-- Dynamic Colorful Education Hero & Informational Section -->
-    <section class="info-hero">
-        <div class="glow-orb" id="orb1"></div>
-        <div class="glow-orb" id="orb2"></div>
-        <div class="hero-container">
-            <div class="brand">
-                <i class="fa-solid fa-book-open-reader main-logo-icon"></i>
-                <h1>Page<span>Loop</span></h1>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🌀</span> PageLoop
             </div>
-            <h2>Chat, Bargain, and Trade Academic Resources Locally</h2>
-            <p class="hero-subtitle">Negotiate prices directly with peers via in-app chat. Settle the main payment outside (cash/UPI) while PageLoop guarantees secure contact-sharing with fixed platform fees.</p>
-            
-            <div class="benefit-cards">
-                <div class="benefit-card">
-                    <i class="fa-solid fa-comments"></i>
-                    <h3>Direct Bargaining</h3>
-                    <p>Chat inside the portal, negotiate prices, and reach mutual agreements without middle-man price hikes.</p>
-                </div>
-                <div class="benefit-card">
-                    <i class="fa-solid fa-wallet"></i>
-                    <h3>Outside Payment</h3>
-                    <p>Pay the agreed amount directly to the seller via Cash or UPI during the physical book hand-off.</p>
-                </div>
-                <div class="benefit-card">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <h3>Safe Booking Escrow</h3>
-                    <p>Both pay a tiny platform reservation fee. Contact details are unlocked only after a double platform handshake.</p>
-                </div>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-primary">Enter Platform</a>
             </div>
+        </div>
+    </header>
 
-            <!-- Interactive 3D Rotating Quote Component -->
-            <div class="quote-3d-viewport">
-                <div class="quote-3d-card" id="quoteCard">
-                    <i class="fa-solid fa-quote-left quote-icon"></i>
-                    <p id="quoteText">"Education is the most powerful weapon which you can use to change the world."</p>
-                    <span id="quoteAuthor">- Nelson Mandela</span>
+    <main class="landing-hero">
+        <div class="container text-center">
+            <span class="badge-tag">Academic Recycling Initiative</span>
+            <h2>Our Primary Aim</h2>
+            <p class="lead-text">
+                PageLoop provides students with a secure, localized ecosystem to directly exchange pre-owned textbooks, 
+                competitive exam notes, and high-quality study materials—entirely eliminating middleman commissions. 
+                Our platform minimizes academic costs while actively promoting green resource recycling.
+            </p>
+        </div>
+    </main>
+
+    <section class="objectives-section">
+        <div class="container">
+            <h3 class="section-title">Strategic Objectives</h3>
+            <div class="objectives-grid">
+                <div class="objective-card">
+                    <div class="num">01</div>
+                    <h4>Affordable Education</h4>
+                    <p>Providing students with access to premium, curated study materials at nominal pricing, bypassing expensive commercial channels.</p>
+                </div>
+                <div class="objective-card">
+                    <div class="num">02</div>
+                    <h4>Sustainable Recycling</h4>
+                    <p>Giving older academic guides and reference papers a second life, saving valuable resources from going to waste.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- NEW SECTION: PageLoop Aim & Objectives Section -->
-    <section class="aim-objectives-section">
-        <div class="aim-container">
-            <div class="aim-header">
-                <span class="badge-title">Our Vision</span>
-                <h2>Aim & Objectives of PageLoop</h2>
-                <p class="section-desc">PageLoop is built with a vision to make academic learning affordable, highly accessible, and environmentally sustainable for every student.</p>
-            </div>
-            <div class="aim-grid">
-                <!-- Our Aim Card -->
-                <div class="aim-card focus-aim">
-                    <div class="card-icon-wrapper">
-                        <i class="fa-solid fa-bullseye"></i>
-                    </div>
-                    <h3>Our Primary Aim (हमारा मुख्य लक्ष्य)</h3>
-                    <p>PageLoop का मुख्य लक्ष्य छात्रों (students) को एक ऐसा सुरक्षित और स्थानीय प्लेटफॉर्म प्रदान करना है, जहाँ वे बिना किसी तीसरे पक्ष (middleman) के मुनाफे के, आपस में सीधे पुरानी किताबें, कॉम्पिटिटिव नोट्स और स्टडी मटेरियल्स का आदान-प्रदान कर सकें। यह शिक्षा के खर्च को कम करता है और पुरानी किताबों को कचरे में जाने से बचाकर रीसाइक्लिंग को बढ़ावा देता है।</p>
-                </div>
-
-                <!-- Strategic Objectives List -->
-                <div class="objectives-list-box">
-                    <h3>Strategic Objectives (हमारे मुख्य उद्देश्य)</h3>
-                    <div class="objective-item">
-                        <div class="obj-num">01</div>
-                        <div class="obj-text">
-                            <h4>Affordable Education (किफायती शिक्षा)</h4>
-                            <p>महंगी नई किताबों के बजाय छात्रों को नाममात्र की या मोल-भाव की गई कीमतों पर पुरानी उत्कृष्ट अध्ययन सामग्री उपलब्ध कराना।</p>
-                        </div>
-                    </div>
-                    <div class="objective-item">
-                        <div class="obj-num">02</div>
-                        <div class="obj-text">
-                            <h4>Environment Sustainability (पर्यावरण सुरक्षा)</h4>
-                            <p>कागज की बर्बादी को रोकने के लिए पुस्तकों के पुनर्चक्रण (Eco-friendly recycling loop) को बढ़ावा देना, जिससे पेड़ों को बचाया जा सके।</p>
-                        </div>
-                    </div>
-                    <div class="objective-item">
-                        <div class="obj-num">03</div>
-                        <div class="obj-text">
-                            <h4>Peer-to-Peer Interaction (छात्र-टू-छात्र जुड़ाव)</h4>
-                            <p>चैट और आपसी मोल-भाव के जरिए छात्रों के बीच एक सहयोगात्मक (Collaborative) शैक्षणिक समुदाय तैयार करना।</p>
-                        </div>
-                    </div>
-                    <div class="objective-item">
-                        <div class="obj-num">04</div>
-                        <div class="obj-text">
-                            <h4>100% Security & Anti-Fraud (सुरक्षित लेनदेन)</h4>
-                            <p>डबल-साइडेड प्लेटफॉर्म एस्क्रो फीस मॉडल द्वारा यह सुनिश्चित करना कि दोनों पक्षों (buyer-seller) का वेरिफिकेशन होने के बाद ही पर्सनल डिटेल्स शेयर हों, जिससे धोखाधड़ी की कोई गुंजाइश न रहे।</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Multi-Role Gatekeeper (Onboarding, Login & Registrations) -->
-    <section class="auth-wrapper" id="authSection">
-        <div class="auth-tabs">
-            <button class="auth-tab-btn active" data-role="buyer">Buyer Panel</button>
-            <button class="auth-tab-btn" data-role="seller">Seller Panel</button>
-            <button class="auth-tab-btn" data-role="staff">Staff Portal</button>
-        </div>
-
-        <!-- Buyer & Seller Unified Signup / Login Form -->
-        <div class="auth-form-card" id="userFormContainer">
-            <h3 id="formTitle">Buyer Registration & Access Gateway</h3>
-            <p class="form-desc">Verify your credentials to enter your role-specific dashboard.</p>
-            
-            <form id="gatekeeperForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label><i class="fa-solid fa-user"></i> Full Name</label>
-                        <input type="text" id="regName" placeholder="e.g. Abidur Hussain" required>
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fa-solid fa-calendar"></i> Date of Birth</label>
-                        <input type="date" id="regDob" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label><i class="fa-solid fa-phone"></i> Phone Number</label>
-                        <div class="input-action-group">
-                            <input type="tel" id="regPhone" placeholder="7002137940" required>
-                            <button type="button" class="btn btn-dark btn-sm" id="btnRequestOtp">Send OTP</button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fa-solid fa-shield-halved"></i> Verification OTP</label>
-                        <input type="text" id="regOtp" placeholder="Enter SMS OTP Code" disabled required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label><i class="fa-solid fa-location-dot"></i> PIN Code</label>
-                        <input type="text" id="regPin" placeholder="785640" required>
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fa-solid fa-graduation-cap"></i> Academic Status</label>
-                        <select id="regStatus" required>
-                            <option value="Student">Student</option>
-                            <option value="Professional">Academic Professional</option>
-                        </select>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-block" id="btnSubmitAuth">Authenticate Secure Access</button>
-            </form>
-        </div>
-
-        <!-- Staff Direct Login Access Portal -->
-        <div class="auth-form-card hidden" id="staffFormContainer">
-            <h3>Staff Internal Administration Log In</h3>
-            <p class="form-desc">Internal database supervision operations authorization.</p>
-            <form id="staffLoginForm">
-                <div class="form-group">
-                    <label>Staff ID Identifier</label>
-                    <input type="text" id="staffId" placeholder="PL-ADMIN-99" required>
-                </div>
-                <div class="form-group">
-                    <label>System Access Password</label>
-                    <input type="password" id="staffPassword" value="password" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Authorize Staff View</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Role-Based Application Views Wrapper -->
-    <div class="dashboard-shell hidden" id="dashboardShell">
-        <header class="navbar">
-            <div class="nav-container">
-                <div class="logo"><i class="fa-solid fa-book-open-reader"></i> Page<span>Loop</span></div>
-                <div class="user-pill" id="userPill">
-                    <span id="pillName">John Doe</span>
-                    <span class="badge" id="pillRole">Role</span>
-                </div>
-                <button class="btn btn-dark btn-sm" id="logoutBtn"><i class="fa-solid fa-power-off"></i> Exit Session</button>
-            </div>
-        </header>
-
-        <!-- ================= BUYER VIEWPORT ================= -->
-        <main class="container hidden" id="buyerView">
-            <div class="viewport-banner">
-                <h2>Live Bookstore Marketplace</h2>
-                <p>Welcome, Buyer. Chat with sellers to bargain! Settle payment externally and pay platform fees securely here.</p>
-            </div>
-            
-            <div class="market-categories">
-                <button class="cat-btn active" data-type="all">All Items</button>
-                <button class="cat-btn" data-type="book">Books Only</button>
-                <button class="cat-btn" data-type="notes">Notes Only</button>
-            </div>
-
-            <div class="flipkart-grid" id="marketGrid">
-                <!-- Injected via JS -->
-            </div>
-        </main>
-
-        <!-- ================= SELLER VIEWPORT ================= -->
-        <main class="container hidden" id="sellerView">
-            <div class="viewport-banner">
-                <h2>Seller Console</h2>
-                <p>Post items and clear pending matching platform charges after buyers commit to your listed resources.</p>
-            </div>
-
-            <div class="seller-layout">
-                <div class="seller-card-form">
-                    <h3>List Your Book or Notes</h3>
-                    <form id="sellerListForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Action Model</label>
-                                <select id="listAction" required>
-                                    <option value="sell">Sell (Set Base Price)</option>
-                                    <option value="donate">Donate (Free)</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Format Type</label>
-                                <select id="listType" required>
-                                    <option value="book">Book</option>
-                                    <option value="notes">Handwritten Notes</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Target Stream / Tier</label>
-                                <select id="listTier" required>
-                                    <option value="School">School Level (Platform Fee: ₹10)</option>
-                                    <option value="College">College Level (Platform Fee: ₹20)</option>
-                                    <option value="University">University Level (Platform Fee: ₹20)</option>
-                                    <option value="Competitive">Competitive Exams (Platform Fee: ₹25)</option>
-                                </select>
-                            </div>
-                            <div class="form-group" id="listPriceGroup">
-                                <label>Set Base Price (₹)</label>
-                                <input type="number" id="listPrice" min="1" placeholder="e.g. 150">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Title / Description Name</label>
-                            <input type="text" id="listTitle" placeholder="e.g. Class 12 Physics Wave Mechanics Guide" required>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label><i class="fa-solid fa-image"></i> Cover Page (JPG Only)</label>
-                                <input type="file" id="imgCover" accept="image/jpeg, image/jpg" required>
-                            </div>
-                            <div class="form-group">
-                                <label><i class="fa-solid fa-file-invoice"></i> Content Index Page (JPG Only)</label>
-                                <input type="file" id="imgContent" accept="image/jpeg, image/jpg" required>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-block">Publish Listing</button>
-                    </form>
-                </div>
-
-                <div class="seller-notifications">
-                    <h3>Escrow Pending Transaction Actions</h3>
-                    <div id="sellerNotificationList">
-                        <!-- Pending payment requests for sellers will render here -->
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <!-- ================= STAFF VIEWPORT ================= -->
-        <main class="container hidden" id="staffView">
-            <div class="viewport-banner" style="background: linear-gradient(135deg, #1e293b, #475569);">
-                <h2>Staff Command Center</h2>
-                <p>Real-time system transaction oversight, listing checks, and user database activity monitoring.</p>
-            </div>
-
-            <div class="staff-dashboard-grid">
-                <div class="staff-card">
-                    <h3>Overall Metrics</h3>
-                    <div class="metric-list">
-                        <div class="metric-item"><span>Total Active Users:</span> <strong id="staffUsersCount">0</strong></div>
-                        <div class="metric-item"><span>Market Listings:</span> <strong id="staffListingsCount">0</strong></div>
-                        <div class="metric-item"><span>Completed Escrows:</span> <strong id="staffEscrowsCount">0</strong></div>
-                    </div>
-                </div>
-
-                <div class="staff-card span-two">
-                    <h3>Live System Logs & Activity Ledger</h3>
-                    <div class="audit-log" id="staffAuditLogs">
-                        <!-- Simulated backend real-time logging -->
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- ================= INTERACTIVE SIMULATED CHAT & BARGAIN MODAL ================= -->
-    <div class="modal-overlay" id="chatModal">
-        <div class="modal chat-modal">
-            <div class="modal-header">
-                <div class="chat-title-wrapper">
-                    <i class="fa-solid fa-comments"></i>
-                    <div>
-                        <h3 id="chatWithTitle">Chatting with Seller</h3>
-                        <span id="chatItemTitle" style="font-size:0.75rem; color:#64748b;">Item Name</span>
-                    </div>
-                </div>
-                <button class="close-btn" id="closeChatBtn">&times;</button>
-            </div>
-            
-            <div class="chat-messages-container" id="chatMessagesBox">
-                <!-- Mock chat messages are rendered dynamically -->
-            </div>
-
-            <div class="chat-bargain-dealbox">
-                <p><i class="fa-solid fa-handshake"></i> Settle Final Price Agreeable to Both (Outside Cash/UPI Payment):</p>
-                <div class="bargain-input-row">
-                    <div class="price-input-wrapper">
-                        <span>₹</span>
-                        <input type="number" id="negotiatedPriceInput" placeholder="Enter agreed price" min="0">
-                    </div>
-                    <button class="btn btn-primary btn-sm" id="btnLockBargainedDeal">Lock Deal & Book</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Integrated Double-Sided Gateway Escrow Modal -->
-    <div class="modal-overlay" id="checkoutModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>Escrow Gateway Clearing Desk</h3>
-                <button class="close-btn" id="closeCheckoutBtn">&times;</button>
-            </div>
-            <div class="checkout-summary" id="checkoutDetails">
-                <!-- Dynamic payment states injection -->
-            </div>
-            <button class="btn btn-primary btn-block" id="btnGatewayAction">Pay Platform Charge Now</button>
-        </div>
-    </div>
-
-    <!-- Global Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-info">
-                <h3>PageLoop Ecosystem</h3>
-                <p>A smart, secure recycling system designed specifically for school, college, and university books and notes. Helping students learn affordably via localized direct trading.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Support & Inquiries</h4>
-                <p><i class="fa-solid fa-phone"></i> Contact Support: <a href="tel:7002137940" class="tel-link">7002137940</a></p>
-                <p><i class="fa-solid fa-envelope"></i> Email: help@pageloop.org</p>
-            </div>
-            <div class="footer-policy">
-                <h4>Privacy Policy Digest</h4>
-                <p>We take digital security seriously. Your local contact exchanges and transaction tokens are protected by our strict double-sided safety handshakes. No direct payments are captured on platform, only minimal platform service fees are settled to handle communications safely.</p>
-            </div>
-        </div>
-        <hr class="footer-divider">
-        <p class="copyright">&copy; 2026 PageLoop Marketplace. Built for sustainable learning. All rights reserved.</p>
+    <footer class="main-footer text-center">
+        <p>&copy; 2026 PageLoop. All Rights Reserved. Empowering students, saving the planet.</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
-</html>
+    </html>
+
