@@ -3,81 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PageLoop - Secure Access Gateway</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>PageLoop Login</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; padding: 20px; background: #f4f4f9; }
+        .card { background: white; padding: 20px; border-radius: 15px; width: 100%; max-width: 400px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        input, select, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #ccc; }
+        button { background: #4F46E5; color: white; border: none; font-weight: bold; cursor: pointer; }
+        .row { display: flex; gap: 10px; }
+    </style>
 </head>
-<body class="auth-body">
-    <div class="auth-navigation">
-        <div class="brand">
-            <span class="main-logo-icon">🌀</span>
-            <h1>PageLoop</h1>
-        </div>
+<body>
+    <div class="card">
+        <h2>Access Gateway</h2>
+        <form id="loginForm">
+            <select id="accountType"><option>Buyer Portal</option><option>Seller Portal</option></select>
+            <input type="text" id="fullName" placeholder="Full Name" required>
+            <input type="date" id="dob" required>
+            <div class="row">
+                <input type="email" id="email" placeholder="Email Address" required>
+                <button type="button" id="sendOtpBtn">Send OTP</button>
+            </div>
+            <input type="text" id="otpInput" placeholder="Enter OTP" maxlength="6" required>
+            <input type="text" id="pinCode" placeholder="PIN Code" required>
+            <select id="academicStatus"><option>Student</option><option>Professional</option></select>
+            <button type="submit">Authenticate Secure Access</button>
+        </form>
     </div>
 
-    <main class="auth-container">
-        <div class="auth-card">
-            <h2>Access Gateway</h2>
-            <p class="auth-subtitle">Verify your identity securely to enter your personalized dashboard.</p>
-            
-            <form id="authGatewayForm">
-                <div class="form-group">
-                    <label for="userRole">Account Type / Destination</label>
-                    <select id="userRole" required>
-                        <option value="buyer">Buyer Portal</option>
-                        <option value="seller">Seller Portal</option>
-                    </select>
-                </div>
+    <script>
+        const API = 'https://pageloop-backend.onrender.com';
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="fullName">Full Name</label>
-                        <input type="text" id="fullName" placeholder="e.g. Abidur Hussain" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="dob">Date of Birth</label>
-                        <input type="date" id="dob" required>
-                    </div>
-                </div>
+        document.getElementById('sendOtpBtn').onclick = async () => {
+            const data = {
+                email: document.getElementById('email').value,
+                fullName: document.getElementById('fullName').value,
+                dob: document.getElementById('dob').value,
+                pinCode: document.getElementById('pinCode').value,
+                academicStatus: document.getElementById('academicStatus').value,
+                accountType: document.getElementById('accountType').value
+            };
+            const res = await fetch(`${API}/api/send-otp`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)});
+            if((await res.json()).success) alert('OTP Sent!');
+        };
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="phoneNumber">Phone Number</label>
-                        <div class="phone-input-wrapper">
-                            <input type="tel" id="phoneNumber" placeholder="e.g. 7002137940" required>
-                            <button type="button" id="sendOtpBtn" class="btn btn-secondary">Send OTP</button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="otp">Verification OTP</label>
-                        <input type="text" id="otp" placeholder="Enter SMS OTP" disabled required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="pinCode">PIN Code</label>
-                        <input type="text" id="pinCode" placeholder="e.g. 785640" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="academicStatus">Academic Status</label>
-                        <select id="academicStatus" required>
-                            <option value="student">Student</option>
-                            <option value="teacher">Teacher / Academician</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-block">Authenticate Secure Access</button>
-            </form>
-            
-            <div class="auth-footer">
-                <p>Authorized access only. Logged activities are tracked for auditing purposes.</p>
-                <p style="margin-top: 0.5rem;"><a href="staff.html" style="color: #6366f1; text-decoration: none; font-weight: 600;">Go to Staff Portal</a></p>
-            </div>
-        </div>
-    </main>
+        document.getElementById('loginForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const res = await fetch(`${API}/api/verify-otp`, { 
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ email: document.getElementById('email').value, otp: document.getElementById('otpInput').value })
+            });
+            if((await res.json()).success) alert('Access Authorized!');
+            else alert('Invalid OTP');
+        };
+    </script>
 </body>
-  </html>
-                          
+</html>
