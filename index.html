@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PageLoop - Welcome</title>
-  <!-- Google Fonts to restore your beautiful custom cursive fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playpen+Sans:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -62,7 +61,6 @@
       box-shadow: 0 10px 20px rgba(0,0,0,0.03);
     }
 
-    /* 3D transforms for 4 quote sides */
     .carousel__cell:nth-child(1) { transform: rotateX(0deg) translateZ(75px); }
     .carousel__cell:nth-child(2) { transform: rotateX(90deg) translateZ(75px); }
     .carousel__cell:nth-child(3) { transform: rotateX(180deg) translateZ(75px); }
@@ -162,7 +160,6 @@
     <h1>PageLoop</h1>
     <div class="subtitle">Your gateway to interactive and conceptual learning.</div>
 
-    <!-- The Pious Intention of the Platform -->
     <div class="intention-box">
       <div class="intention-title">Our Pious Intention</div>
       <div class="intention-text">
@@ -171,7 +168,7 @@
     </div>
 
     <div class="btn-group">
-      <!-- Direct links to login.html with query parameters -->
+      <!-- Direct links to login.html -->
       <a href="login.html?role=user" class="main-btn btn-primary">Student & User Portal</a>
       <a href="login.html?role=staff" class="main-btn btn-secondary">Staff & Administrator Portal</a>
     </div>
@@ -181,7 +178,6 @@
     let currentRotationStep = 0;
     const carousel = document.getElementById('quoteCarousel');
     
-    // Smooth 3D automatic spin rotation every 4 seconds
     setInterval(() => {
       currentRotationStep++;
       carousel.style.transform = `rotateX(${currentRotationStep * -90}deg)`;
@@ -189,5 +185,6 @@
   </script>
 </body>
 </html>
+
 
     
