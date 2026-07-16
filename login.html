@@ -1,1 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageLoop - Secure Access Gateway</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+    <div class="auth-navigation">
+        <div class="brand">
+            <span class="main-logo-icon">🌀</span>
+            <h1>PageLoop</h1>
+        </div>
+    </div>
 
+    <main class="auth-container">
+        <div class="auth-card">
+            <h2>Access Gateway</h2>
+            <p class="auth-subtitle">Verify your identity securely to enter your personalized dashboard.</p>
+            
+            <form id="authGatewayForm">
+                <div class="form-group">
+                    <label for="userRole">Account Type / Destination</label>
+                    <select id="userRole" required>
+                        <option value="buyer">Buyer Portal</option>
+                        <option value="seller">Seller Portal</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="e.g. Abidur Hussain" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <div class="phone-input-wrapper">
+                            <input type="tel" id="phoneNumber" placeholder="e.g. 7002137940" required>
+                            <button type="button" id="sendOtpBtn" class="btn btn-secondary">Send OTP</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="otp">Verification OTP</label>
+                        <input type="text" id="otp" placeholder="Enter SMS OTP" disabled required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pinCode">PIN Code</label>
+                        <input type="text" id="pinCode" placeholder="e.g. 785640" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="academicStatus">Academic Status</label>
+                        <select id="academicStatus" required>
+                            <option value="student">Student</option>
+                            <option value="teacher">Teacher / Academician</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Authenticate Secure Access</button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Authorized access only. Logged activities are tracked for auditing purposes.</p>
+                <p style="margin-top: 0.5rem;"><a href="staff.html" style="color: #6366f1; text-decoration: none; font-weight: 600;">Go to Staff Portal</a></p>
+            </div>
+        </div>
+    </main>
+</body>
+  </html>
+                          
