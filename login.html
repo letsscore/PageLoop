@@ -118,15 +118,13 @@
 <body>
 
   <div class="card">
-    <h1 id="gatewayTitle">Access Gateway</h1>
-    <div class="subtitle" id="gatewaySubtitle">Verify your identity securely to enter your personalized dashboard.</div>
+    <h1>Access Gateway</h1>
+    <div class="subtitle">Verify your identity securely to enter your personalized dashboard.</div>
 
-    <!-- 1. PUBLIC PORTAL FORM (BUYER / SELLER) -->
     <form id="publicForm">
       <div class="form-group">
         <label>Account Type / Destination</label>
         <select id="accountType">
-          <!-- Values match your actual HTML files on GitHub exactly -->
           <option value="buyer.html">Buyer Portal</option>
           <option value="seller.html">Seller Portal</option>
         </select>
@@ -175,23 +173,8 @@
       <div id="publicFeedback" class="feedback"></div>
     </form>
 
-    <!-- 2. STAFF/ADMIN PORTAL FORM -->
-    <form id="staffForm" style="display: none;">
-      <div class="form-group">
-        <label>System Admin Username</label>
-        <input type="text" id="adminUser" placeholder="Enter username" required>
-      </div>
-      <div class="form-group">
-        <label>Access Key Phrase</label>
-        <input type="password" id="Abidur@2026" placeholder="••••••••" required>
-      </div>
-      <button type="submit" class="submit-btn">Authorize Staff Session</button>
-      <div id="staffFeedback" class="feedback"></div>
-    </form>
-
-    <!-- Navigation links -->
     <div class="switch-link">
-      <a href="#" id="togglePortalBtn">Switch to Staff Portal</a><br><br>
+      <a href="staff.html" style="color: var(--primary-color);">Go to Staff/Admin Portal →</a><br><br>
       <a href="index.html" style="color: #64748B; font-size: 13px;">← Back to Homepage</a>
     </div>
   </div>
@@ -200,39 +183,9 @@
     const BACKEND_URL = 'https://pageloop-backend.onrender.com';
     
     const publicForm = document.getElementById('publicForm');
-    const staffForm = document.getElementById('staffForm');
-    const togglePortalBtn = document.getElementById('togglePortalBtn');
-    const gatewayTitle = document.getElementById('gatewayTitle');
-    const gatewaySubtitle = document.getElementById('gatewaySubtitle');
-
-    const urlParams = new URLSearchParams(window.location.search);
-    let currentRole = urlParams.get('role') === 'staff' ? 'staff' : 'user';
-
-    function updateFormVisibility() {
-      if (currentRole === 'staff') {
-        publicForm.style.display = 'none';
-        staffForm.style.display = 'block';
-        gatewayTitle.textContent = "Staff Terminal";
-        gatewaySubtitle.textContent = "Authorized staff and administrator authentication console.";
-        togglePortalBtn.textContent = "Switch to Student/User Portal";
-      } else {
-        publicForm.style.display = 'block';
-        staffForm.style.display = 'none';
-        gatewayTitle.textContent = "Access Gateway";
-        gatewaySubtitle.textContent = "Verify your identity securely to enter your personalized dashboard.";
-        togglePortalBtn.textContent = "Switch to Staff Portal";
-      }
-    }
-    updateFormVisibility();
-
-    togglePortalBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      currentRole = currentRole === 'staff' ? 'user' : 'staff';
-      updateFormVisibility();
-    });
-
     const sendOtpBtn = document.getElementById('sendOtpBtn');
     const otpFeedback = document.getElementById('otpFeedback');
+    const publicFeedback = document.getElementById('publicFeedback');
 
     sendOtpBtn.addEventListener('click', async () => {
       const email = document.getElementById('email').value;
@@ -284,7 +237,6 @@
       }
     });
 
-    const publicFeedback = document.getElementById('publicFeedback');
     publicForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       showFeedback(publicFeedback, 'Verifying code...', 'success');
@@ -303,7 +255,7 @@
         if (data.success) {
           showFeedback(publicFeedback, 'Authorized! Redirecting...', 'success');
           
-          // GRAB DESTINATION DYNAMICALLY MATCHING GITHUB FILES
+          // Redirect dynamically to either buyer.html or seller.html
           const targetPage = document.getElementById('accountType').value; 
           setTimeout(() => {
             window.location.href = targetPage;
@@ -317,43 +269,6 @@
       }
     });
 
-    const staffFeedback = document.getElementById('staffFeedback');
-    staffForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const usernameInput = document.getElementById('adminUser').value;
-      const passwordInput = document.getElementById('adminPass').value;
-      
-      showFeedback(staffFeedback, 'Verifying Credentials...', 'success');
-
-      try {
-        const response = await fetch(`${BACKEND_URL}/api/admin-login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username: usernameInput, password: passwordInput })
-        });
-
-        const data = await response.json();
-        if (data.success) {
-          showFeedback(staffFeedback, 'Staff session initialized! Redirecting...', 'success');
-          setTimeout(() => {
-            window.location.href = 'staff.html';
-          }, 1000);
-        } else {
-          showFeedback(staffFeedback, 'Access Denied: Invalid Username or Password Key.', 'error');
-        }
-      } catch (err) {
-        // SAFE FALLBACK: Checks locally if backend fails
-        if (usernameInput === 'admin' && passwordInput === 'Staff@2026') {
-          showFeedback(staffFeedback, 'Offline Authorization Successful! Redirecting...', 'success');
-          setTimeout(() => {
-            window.location.href = 'staff.html';
-          }, 1000);
-        } else {
-          showFeedback(staffFeedback, 'Access Denied: Incorrect credentials.', 'error');
-        }
-      }
-    });
-
     function showFeedback(element, message, type) {
       element.textContent = message;
       element.className = `feedback ${type}`;
@@ -361,4 +276,5 @@
   </script>
 </body>
   </html>
+
 
