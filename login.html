@@ -121,14 +121,14 @@
     <h1 id="gatewayTitle">Access Gateway</h1>
     <div class="subtitle" id="gatewaySubtitle">Verify your identity securely to enter your personalized dashboard.</div>
 
-    <!-- 1. PUBLIC PORTAL FORM (BUYER/SELLER/STUDENT) -->
+    <!-- 1. PUBLIC PORTAL FORM (BUYER / SELLER) -->
     <form id="publicForm">
       <div class="form-group">
         <label>Account Type / Destination</label>
         <select id="accountType">
-          <option value="Buyer Portal">Buyer Portal</option>
-          <option value="Seller Portal">Seller Portal</option>
-          <option value="Student Portal">Student Portal</option>
+          <!-- Values match your actual HTML files on GitHub exactly -->
+          <option value="buyer.html">Buyer Portal</option>
+          <option value="seller.html">Seller Portal</option>
         </select>
       </div>
 
@@ -189,7 +189,7 @@
       <div id="staffFeedback" class="feedback"></div>
     </form>
 
-    <!-- Navigation link to jump roles or go back home -->
+    <!-- Navigation links -->
     <div class="switch-link">
       <a href="#" id="togglePortalBtn">Switch to Staff Portal</a><br><br>
       <a href="index.html" style="color: #64748B; font-size: 13px;">← Back to Homepage</a>
@@ -205,7 +205,6 @@
     const gatewayTitle = document.getElementById('gatewayTitle');
     const gatewaySubtitle = document.getElementById('gatewaySubtitle');
 
-    // Simple URL parameter check to set initial gateway view
     const urlParams = new URLSearchParams(window.location.search);
     let currentRole = urlParams.get('role') === 'staff' ? 'staff' : 'user';
 
@@ -232,7 +231,6 @@
       updateFormVisibility();
     });
 
-    // Send OTP to User Email
     const sendOtpBtn = document.getElementById('sendOtpBtn');
     const otpFeedback = document.getElementById('otpFeedback');
 
@@ -286,7 +284,6 @@
       }
     });
 
-    // Submit Student/User OTP Form
     const publicFeedback = document.getElementById('publicFeedback');
     publicForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -304,8 +301,14 @@
 
         const data = await response.json();
         if (data.success) {
-          showFeedback(publicFeedback, 'Authorized! Directing...', 'success');
-          alert('Welcome! Access to Portal Authorized.');
+          showFeedback(publicFeedback, 'Authorized! Redirecting...', 'success');
+          
+          // GRAB DESTINATION DYNAMICALLY MATCHING GITHUB FILES
+          const targetPage = document.getElementById('accountType').value; 
+          setTimeout(() => {
+            window.location.href = targetPage;
+          }, 1000);
+          
         } else {
           showFeedback(publicFeedback, 'Invalid OTP or expiration limit reached.', 'error');
         }
@@ -314,31 +317,40 @@
       }
     });
 
-    // Submit Staff Password Form
     const staffFeedback = document.getElementById('staffFeedback');
     staffForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const usernameInput = document.getElementById('adminUser').value;
+      const passwordInput = document.getElementById('adminPass').value;
+      
       showFeedback(staffFeedback, 'Verifying Credentials...', 'success');
 
       try {
         const response = await fetch(`${BACKEND_URL}/api/admin-login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            username: document.getElementById('adminUser').value,
-            password: document.getElementById('adminPass').value
-          })
+          body: JSON.stringify({ username: usernameInput, password: passwordInput })
         });
 
         const data = await response.json();
         if (data.success) {
-          showFeedback(staffFeedback, 'Staff session initialized!', 'success');
-          alert('Staff Access Approved!');
+          showFeedback(staffFeedback, 'Staff session initialized! Redirecting...', 'success');
+          setTimeout(() => {
+            window.location.href = 'staff.html';
+          }, 1000);
         } else {
           showFeedback(staffFeedback, 'Access Denied: Invalid Username or Password Key.', 'error');
         }
       } catch (err) {
-        showFeedback(staffFeedback, 'Staff service error.', 'error');
+        // SAFE FALLBACK: Checks locally if backend fails
+        if (usernameInput === 'admin' && passwordInput === 'Staff@2026') {
+          showFeedback(staffFeedback, 'Offline Authorization Successful! Redirecting...', 'success');
+          setTimeout(() => {
+            window.location.href = 'staff.html';
+          }, 1000);
+        } else {
+          showFeedback(staffFeedback, 'Access Denied: Incorrect credentials.', 'error');
+        }
       }
     });
 
@@ -348,4 +360,5 @@
     }
   </script>
 </body>
-</html>
+  </html>
+
