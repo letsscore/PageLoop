@@ -122,6 +122,7 @@
     <div class="subtitle">Verify your identity securely to enter your personalized dashboard.</div>
 
     <form id="publicForm">
+      <!-- Re-added to ensure data properties map correctly during fetch -->
       <div class="form-group">
         <label>Account Type / Destination</label>
         <select id="accountType">
@@ -255,7 +256,6 @@
         if (data.success) {
           showFeedback(publicFeedback, 'Authorized! Redirecting...', 'success');
           
-          // Redirect dynamically to either buyer.html or seller.html
           const targetPage = document.getElementById('accountType').value; 
           setTimeout(() => {
             window.location.href = targetPage;
@@ -275,6 +275,7 @@
     }
   </script>
 </body>
-  </html>
+</html>
+
 
 
