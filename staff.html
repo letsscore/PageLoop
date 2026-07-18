@@ -3,111 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Portal - PageLoop</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>PageLoop - Staff Control Desk</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; margin: 0; padding: 20px; color: #1e293b; }
+        .admin-container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { color: #1e1b4b; margin: 0; font-size: 28px; }
+        h2 { color: #4f46e5; font-size: 20px; margin-top: 0; margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
+        @media(min-width: 900px) { .dashboard-grid { grid-template-columns: 1fr 2fr; } }
+        .panel { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; }
+        .metric-card { background: #3b82f6; color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px; }
+        .metric-value { font-size: 36px; font-weight: 800; margin: 5px 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+        th { background: #64748b; color: white; font-weight: 600; }
+        .status-badge { padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; text-align: center; display: inline-block; }
+        .status-ongoing { background: #fef3c7; color: #d97706; }
+        .status-completed { background: #dcfce7; color: #15803d; }
+        .status-paid { background: #e0f2fe; color: #0369a1; font-weight: bold; }
+        .status-unpaid { background: #fee2e2; color: #b91c1c; }
+        .auth-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:#1e293b; display:flex; justify-content:center; align-items:center; z-index:9999; }
+        .auth-box { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); max-width: 350px; width: 100%; text-align: center; }
+        .auth-box input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 4px; box-sizing: border-box; }
+        .auth-box button { background: #4f46e5; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; }
+    </style>
 </head>
-<body class="auth-body">
-    <!-- Authorization Wrapper -->
-    <div id="staffAuthWrapper" class="auth-container">
-        <div class="auth-card">
-            <h2>Staff Portal</h2>
-            <p class="auth-subtitle">Verify your administrative access keys to enter.</p>
-            <form id="staffCredentialLoginForm">
-                <div class="form-group">
-                    <label for="staffId">System Admin Username</label>
-                    <input type="text" id="staffId" placeholder="Admin username" required>
+<body>
+
+<div id="authOverlay" class="auth-overlay">
+    <div class="auth-box">
+        <h3 style="margin-top:0; color:#1e293b;">Staff Authorization</h3>
+        <input type="text" id="staffUser" placeholder="Username" required>
+        <input type="password" id="staffPass" placeholder="Password" required>
+        <button onclick="handleStaffLogin()">Login to Dashboard</button>
+        <p id="authError" style="color:#ef4444; font-size:13px; margin-top:10px; margin-bottom:0; font-weight:bold;"></p>
+    </div>
+</div>
+
+<div class="admin-container">
+    <div class="header">
+        <div>
+            <h1>Staff Management Platform</h1>
+            <p style="margin: 5px 0 0 0; color: #64748b; font-size: 14px;">Real-Time Activity Audit Ledger</p>
+        </div>
+        <button onclick="logoutStaff()" style="background:#ef4444; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:bold; cursor:pointer;">Secure Logout</button>
+    </div>
+
+    <div class="dashboard-grid">
+        <div>
+            <div class="panel">
+                <h2>Financial Ledger</h2>
+                <div class="metric-card">
+                    <div>Total Platform Earnings</div>
+                    <div class="metric-value">₹450.00</div>
+                    <div style="font-size:12px; opacity:0.8;">From registration & completion processing fees</div>
                 </div>
-                <div class="form-group">
-                    <label for="staffPassword">Access Key Phrase</label>
-                    <input type="password" id="staffPassword" placeholder="Admin password" required>
+                
+                <h3>Platform Fee Registry</h3>
+                <div style="overflow-x:auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User Session Identity</th>
+                                <th>Role</th>
+                                <th>Fee State</th>
+                            </tr>
+                        </thead>
+                        <tbody id="financialTableBody">
+                            <tr>
+                                <td>akilasultana3073@gmail.com</td>
+                                <td>Seller</td>
+                                <td><span class="status-badge status-paid">₹30 Paid</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <button type="submit" class="btn btn-dark btn-block">Verify Authority</button>
-            </form>
+            </div>
+        </div>
+
+        <div>
+            <div class="panel">
+                <h2>Active P2P Negotiations & Agreements</h2>
+                <p style="color:#64748b; font-size:13px; margin-top:-10px; margin-bottom:20px;">Monitoring transactions through to completed mutual agreement fulfillment.</p>
+                
+                <div style="overflow-x:auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Buyer Account</th>
+                                <th>Seller Account</th>
+                                <th>Resource Item</th>
+                                <th>Agreed Price</th>
+                                <th>Agreement Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activityTableBody">
+                            <tr>
+                                <td>student_test@gmail.com</td>
+                                <td>akilasultana3073@gmail.com</td>
+                                <td>Class 12 Physics Notes</td>
+                                <td>₹150.00</td>
+                                <td><span class="status-badge status-ongoing">In Progress (Chatting)</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
-    <!-- Admin Panel Interface (Visible only after validating backend login) -->
-    <div id="staffDashboardShell" class="hidden-panel" style="display: none; width: 100%;">
-        <header class="navbar">
-            <div class="nav-container">
-                <div class="logo">🌀 PageLoop <span>Administrative Control</span></div>
-                <button class="btn btn-dark btn-sm" id="staffLogoutBtn">Terminate Session</button>
-            </div>
-        </header>
+<script>
+    const BACKEND_URL = "https://pageloop-backend.onrender.com";
 
-        <main class="container" style="margin-top: 2rem;">
-            <div class="staff-dashboard-grid" style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
-                <div class="staff-card" style="background: white; padding: 2rem; border-radius: 15px; border: 1px solid #e2e8f0;">
-                    <h3>Registry Metrics</h3>
-                    <div style="margin-top: 1rem;">
-                        <p>Active Handshakes: <strong id="activeHandshakes" style="color: #6366f1;">0</strong></p>
-                        <p style="margin-top: 0.5rem;">Total Items: <strong id="totalMaterials">0</strong></p>
-                    </div>
-                </div>
+    async function handleStaffLogin() {
+        const username = document.getElementById('staffUser').value;
+        const password = document.getElementById('staffPass').value;
+        const errorDiv = document.getElementById('authError');
 
-                <div class="staff-card" style="background: white; padding: 2rem; border-radius: 15px; border: 1px solid #e2e8f0;">
-                    <h3>System Transaction & Security Logs</h3>
-                    <div id="staffAuditLogs" class="audit-log" style="max-height: 300px; overflow-y: auto; background: #0f172a; color: #38bdf8; font-family: monospace; padding: 1.5rem; border-radius: 10px; margin-top: 1rem; font-size: 0.85rem;">
-                        <div>[SYSTEM RUNNING] Standing by for secure backend ledger feed...</div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-    <script>
-  const BACKEND_URL = 'https://pageloop-backend.onrender.com';
-  
-  const loginForm = document.getElementById('staffCredentialLoginForm');
-  const authWrapper = document.getElementById('staffAuthWrapper');
-  const dashboardShell = document.getElementById('staffDashboardShell');
-  const logoutBtn = document.getElementById('staffLogoutBtn');
+        errorDiv.innerText = "";
 
-  // Handle Form Submission
-  loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const username = document.getElementById('staffId').value;
-    const password = document.getElementById('staffPassword').value;
+        try {
+            const response = await fetch(`${BACKEND_URL}/api/admin-login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
 
-    try {
-      const response = await fetch(`${BACKEND_URL}/api/admin-login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
+            const data = await response.json();
 
-      const data = await response.json();
-
-      if (data.success) {
-        // Hide login wrapper and show admin dashboard
-        authWrapper.style.display = 'none';
-        dashboardShell.style.display = 'block';
-        
-        // Optional: Trigger dashboard logs loading here
-      } else {
-        alert('Access Denied: Invalid credentials.');
-      }
-    } catch (err) {
-      // Offline fallback in case of connection issues
-      if (username === 'admin' && password === 'Staff@2026') {
-        authWrapper.style.display = 'none';
-        dashboardShell.style.display = 'block';
-      } else {
-        alert('Database authentication error. Please try again.');
-      }
+            if (data.success) {
+                sessionStorage.setItem('staffToken', 'authenticated_2026');
+                document.getElementById('authOverlay').style.display = 'none';
+            } else {
+                throw new Error(data.message || "Invalid administrative credentials.");
+            }
+        } catch (err) {
+            errorDiv.innerText = err.message || "Authentication transmission failed.";
+        }
     }
-  });
 
-  // Handle Logout Session Termination
-  logoutBtn.addEventListener('click', () => {
-    authWrapper.style.display = 'block';
-    dashboardShell.style.display = 'none';
-    loginForm.reset();
-    window.location.href = 'index.html';
-  });
-            </script>
-    
+    window.addEventListener('DOMContentLoaded', () => {
+        const token = sessionStorage.getItem('staffToken');
+        if (token === 'authenticated_2026') {
+            document.getElementById('authOverlay').style.display = 'none';
+        }
+    });
+
+    function logoutStaff() {
+        sessionStorage.removeItem('staffToken');
+        window.location.reload();
+    }
+</script>
 </body>
-  </html>
+    </html>
+
 
