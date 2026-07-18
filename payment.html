@@ -1,1 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageLoop - Seller Activation Gate</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+        .payment-card { background: white; padding: 35px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; max-width: 400px; width: 100%; }
+        h2 { color: #1e1b4b; font-size: 22px; margin-bottom: 10px; }
+        p { color: #64748b; font-size: 14px; line-height: 1.5; }
+        .price-tag { font-size: 42px; font-weight: 800; color: #4f46e5; margin: 20px 0; }
+        .price-tag span { font-size: 16px; color: #94a3b8; font-weight: 400; }
+        .btn-pay { background: #10b981; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: bold; width: 100%; cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.25); transition: background 0.2s; }
+        .btn-pay:hover { background: #059669; }
+        .btn-pay:disabled { background: #94a3b8; cursor: not-allowed; }
+        #payStatus { margin-top: 15px; font-weight: 600; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="payment-card">
+    <h2>Activate Seller Profile</h2>
+    <p>To list your academic materials, books, or notes on PageLoop, complete your secure profile deployment entry fee layout verification.</p>
+    
+    <div class="price-tag">₹30 <span>one-time clearance</span></div>
+    <p style="color: #94a3b8; font-size: 12px; margin-top: -10px; margin-bottom: 25px;">Unlocks listing features permanently without recurring charges.</p>
+    
+    <button class="btn-pay" id="payButton">Confirm & Settle Activation</button>
+    <div id="payStatus"></div>
+</div>
+
+<script>
+    const BACKEND_URL = "https://pageloop-backend.onrender.com";
+
+    document.getElementById('payButton').addEventListener('click', async () => {
+        const email = localStorage.getItem('userEmail');
+        const payButton = document.getElementById('payButton');
+        const statusDiv = document.getElementById('payStatus');
+        
+        if (!email) {
+            statusDiv.style.color = "#ef4444";
+            statusDiv.innerText = "Error: Local profile context identity signature missing. Please use access portal.";
+            return;
+        }
+
+        payButton.disabled = true;
+        statusDiv.style.color = "#4f46e5";
+        statusDiv.innerText = "Processing checkout ledger transaction...";
+
+        try {
+            const response = await fetch(`${BACKEND_URL}/api/update-payment`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                statusDiv.style.color = "#10b981";
+                statusDiv.innerText = "Payment Authenticated! Privileges unlocked successfully.";
+                
+                setTimeout(() => {
+                    window.location.href = "seller.html";
+                }, 1500);
+            } else {
+                throw new Error(data.message || "Ledger transaction dropped by database pipeline.");
+            }
+        } catch (err) {
+            statusDiv.style.color = "#ef4444";
+            statusDiv.innerText = err.message || "Transaction timed out. Try again.";
+            payButton.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>
 
