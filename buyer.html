@@ -3,39 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Material Market - PageLoop</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>PageLoop - Academic Marketplace</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; margin: 0; padding: 20px; color: #1e293b; }
+        .market-container { max-width: 1050px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .navbar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { color: #4f46e5; margin: 0; font-size: 26px; }
+        .user-tag { background: #eff6ff; color: #2563eb; padding: 6px 14px; border-radius: 20px; font-weight: 600; font-size: 13px; }
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; margin-top: 20px; }
+        .item-card { border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; background: #f8fafc; transition: all 0.2s; display: flex; flex-direction: column; justify-content: space-between; }
+        .item-card:hover { transform: translateY(-4px); box-shadow: 0 6px 15px rgba(0,0,0,0.06); border-color: #cbd5e1; }
+        .item-title { font-size: 18px; font-weight: bold; color: #1e1b4b; margin: 0 0 6px 0; }
+        .item-meta { font-size: 13px; color: #64748b; margin: 0 0 15px 0; }
+        .price-badge { font-weight: 800; color: #10b981; font-size: 22px; margin-bottom: 15px; }
+        .btn-buy { background: #4f46e5; color: white; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; font-size: 14px; transition: background 0.2s; }
+        .btn-buy:hover { background: #4338ca; }
+    </style>
 </head>
 <body>
-    <header class="navbar">
-        <div class="nav-container">
-            <div class="logo">🌀 PageLoop <span class="badge-role">Buyer</span></div>
-            <div class="user-profile">
-                <span id="buyerNameBadge" class="username-pill">Verified Buyer</span>
-                <button class="btn btn-dark btn-sm" id="logoutBtn">Log Out</button>
+
+<div class="market-container">
+    <div class="navbar">
+        <div>
+            <h1>PageLoop Material Market</h1>
+            <p id="buyerEmailDisplay" style="margin: 5px 0 0 0; color: #64748b; font-size: 14px;"></p>
+        </div>
+        <span class="user-tag">Role: Active Buyer</span>
+    </div>
+
+    <h3>Available Books & Study Notes</h3>
+    
+    <div class="grid-layout">
+        <div class="item-card">
+            <div>
+                <h4 class="item-title">Class 12 Physics Complete Notes</h4>
+                <p class="item-meta">Comprehensive Electromagnetism & Optics chapters with solved examples.</p>
+            </div>
+            <div>
+                <div class="price-badge">₹150</div>
+                <button class="btn-buy" onclick="handlePurchase('Class 12 Physics Complete Notes')">Buy Resource</button>
             </div>
         </div>
-    </header>
 
-    <main class="container">
-        <section class="market-hero">
-            <h3>Find Curated Study Materials</h3>
-            <p>Negotiate rates directly with local sellers and collect your books without added fees.</p>
-        </section>
-
-        <div class="market-categories">
-            <button class="cat-btn active" data-type="all">All Materials</button>
-            <button class="cat-btn" data-type="notes">Lecture Notes</button>
-            <button class="cat-btn" data-type="book">Textbooks</button>
-        </div>
-
-        <section class="marketplace-wrapper">
-            <div id="marketGrid" class="flipkart-grid">
-                <!-- Dynamically populated via app.js -->
+        <div class="item-card">
+            <div>
+                <h4 class="item-title">NCERT Organic Chemistry Guide</h4>
+                <p class="item-meta">High-yield short notes targeted for competitive entrance exams.</p>
             </div>
-        </section>
-    </main>
+            <div>
+                <div class="price-badge">₹90</div>
+                <button class="btn-buy" onclick="handlePurchase('NCERT Organic Chemistry Guide')">Buy Resource</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const BACKEND_URL = "https://pageloop-backend.onrender.com";
+    const email = localStorage.getItem('userEmail');
+
+    window.addEventListener('DOMContentLoaded', () => {
+        if (!email) {
+            alert("Security Intercept: No active user session detected. Returning to login.");
+            window.location.href = "login.html";
+            return;
+        }
+        document.getElementById('buyerEmailDisplay').innerText = `Shopping as: ${email}`;
+    });
+
+    async function handlePurchase(itemName) {
+        try {
+            const response = await fetch(`${BACKEND_URL}/api/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                if (data.isPlatformPaid) {
+                    alert(`Success! You have unlocked access to: "${itemName}". Connecting to the exchange workspace...`);
+                } else {
+                    alert("SECURITY VIOLATION: You must clear the platform entry charge to buy resources. You are being logged out and removed from the portal.");
+                    localStorage.removeItem('userEmail');
+                    window.location.href = "login.html";
+                }
+            } else {
+                throw new Error("Unable to authenticate ledger records.");
+            }
+        } catch (err) {
+            console.error("Purchase barrier handling error:", err);
+            alert("Connection error. Verification failed.");
+        }
+    }
+</script>
 </body>
-                                                                          </html>
-
+    </html>
+    
