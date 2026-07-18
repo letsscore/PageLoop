@@ -1,189 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PageLoop - Welcome</title>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playpen+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #5C59E8;
-      --bg: #F8FAFC;
-      --text: #1E293B;
-      --card-bg: #EBF2FE;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: var(--bg);
-      font-family: 'Playpen Sans', cursive, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      overflow-x: hidden;
-    }
-
-    /* 3D Quote Container */
-    .scene {
-      width: 100%;
-      max-width: 440px;
-      height: 150px;
-      perspective: 600px;
-      margin-bottom: 30px;
-    }
-    .carousel {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 1s;
-    }
-    .carousel__cell {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      left: 0;
-      top: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 15px 25px;
-      background: white;
-      border: 2px solid #E2E8F0;
-      border-radius: 24px;
-      font-family: 'Caveat', cursive;
-      font-size: 26px;
-      text-align: center;
-      color: var(--primary);
-      backface-visibility: hidden;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.03);
-    }
-
-    .carousel__cell:nth-child(1) { transform: rotateX(0deg) translateZ(75px); }
-    .carousel__cell:nth-child(2) { transform: rotateX(90deg) translateZ(75px); }
-    .carousel__cell:nth-child(3) { transform: rotateX(180deg) translateZ(75px); }
-    .carousel__cell:nth-child(4) { transform: rotateX(270deg) translateZ(75px); }
-
-    /* Layout Card */
-    .card {
-      background: #ffffff;
-      padding: 40px 30px;
-      border-radius: 32px;
-      width: 100%;
-      max-width: 440px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-      text-align: center;
-    }
-    h1 {
-      font-family: 'Caveat', cursive;
-      font-size: 56px;
-      color: #111827;
-      margin-bottom: 10px;
-    }
-    .subtitle {
-      color: #64748B;
-      font-size: 15px;
-      line-height: 1.5;
-      margin-bottom: 25px;
-    }
-
-    /* Pious Intention Section */
-    .intention-box {
-      background-color: var(--card-bg);
-      border-radius: 20px;
-      padding: 20px;
-      margin-bottom: 30px;
-      border: 1px dashed var(--primary);
-      text-align: left;
-    }
-    .intention-title {
-      font-family: 'Caveat', cursive;
-      font-size: 26px;
-      color: var(--primary);
-      margin-bottom: 8px;
-      text-align: center;
-    }
-    .intention-text {
-      font-size: 14px;
-      color: var(--text);
-      line-height: 1.6;
-      text-align: justify;
-    }
-
-    .btn-group {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-    .main-btn {
-      display: block;
-      width: 100%;
-      padding: 16px;
-      border-radius: 18px;
-      font-family: 'Caveat', cursive;
-      font-size: 26px;
-      text-decoration: none;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-      border: none;
-    }
-    .btn-primary:hover { opacity: 0.9; }
-    .btn-secondary {
-      background: #F1F5F9;
-      color: var(--text);
-      border: 1px solid #E2E8F0;
-    }
-    .btn-secondary:hover { background: #E2E8F0; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageLoop - Welcome</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8fafc; color: #1e293b; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .welcome-card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; max-width: 450px; width: 100%; }
+        h1 { color: #4f46e5; font-size: 32px; margin-bottom: 10px; }
+        p { color: #64748b; font-size: 15px; margin-bottom: 30px; line-height: 1.6; }
+        .btn-link { display: block; padding: 14px; margin-bottom: 15px; border-radius: 8px; font-weight: bold; font-size: 16px; text-decoration: none; text-align: center; transition: all 0.2s; }
+        .btn-primary { background: #4f46e5; color: white; box-shadow: 0 4px 12px rgba(79,70,229,0.25); }
+        .btn-primary:hover { background: #4338ca; }
+        .btn-secondary { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+        .btn-secondary:hover { background: #e2e8f0; }
+    </style>
 </head>
 <body>
 
-  <!-- Rotating 3D Quote Display -->
-  <div class="scene">
-    <div class="carousel" id="quoteCarousel">
-      <div class="carousel__cell">"Education is not the learning of facts, but the training of the mind to think."</div>
-      <div class="carousel__cell">"There are no limits to physics; there are only horizons waiting to be crossed."</div>
-      <div class="carousel__cell">"The more that you read, the more things you will know."</div>
-      <div class="carousel__cell">"An investment in knowledge pays the best interest."</div>
-    </div>
-  </div>
-
-  <!-- Selection Portal Card -->
-  <div class="card">
+<div class="welcome-card">
     <h1>PageLoop</h1>
-    <div class="subtitle">Your gateway to interactive and conceptual learning.</div>
-
-    <div class="intention-box">
-      <div class="intention-title">Our Pious Intention</div>
-      <div class="intention-text">
-              Page loop provides a platform to reaers who needs books or notes at a price lower than the market price. I integrates both seller and buyer in a one to one chat and settle their burgain for price.Its always a better job to donate used old books and notes Unless you want value.
-      </div>
-    </div>
-
-    <div class="btn-group">
-      <!-- Direct links to login.html -->
-      <a href="login.html?role=user" class="main-btn btn-primary">Student & User Portal</a>
-    </div>
-  </div>
-
-  <script>
-    let currentRotationStep = 0;
-    const carousel = document.getElementById('quoteCarousel');
+    <p>The academic resource exchange hub. Trade verified textbooks, comprehensive study materials, and curriculum notes instantly.</p>
     
-    setInterval(() => {
-      currentRotationStep++;
-      carousel.style.transform = `rotateX(${currentRotationStep * -90}deg)`;
-    }, 4000);
-  </script>
+    <a href="login.html" class="btn-link btn-primary">Enter Access Portal</a>
+    <a href="about.html" class="btn-link btn-secondary">Learn How It Works</a>
+</div>
+
 </body>
 </html>
+
+
 
 
     
