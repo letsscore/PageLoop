@@ -97,11 +97,11 @@
             academicStatus: document.getElementById('academicStatus').value
         };
 
-        // Network call handling with structural fallback to prevent infinite loading freeze
         try {
             const controller = new AbortController();
-            const id = setTimeout(() => controller.abort(), 12000); // 12 seconds auto-timeout limit
+            const id = setTimeout(() => controller.abort(), 12000); 
 
+            // FIX: Template literal backticks implemented correctly here
             const response = await fetch(`${BACKEND_URL}/api/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -131,7 +131,7 @@
         } catch (err) {
             statusMessage.className = "status-msg error";
             if(err.name === 'AbortError') {
-                statusMessage.innerText = "Server wakeup latency detected (Render Cold Start). Please tap submit again in 5 seconds.";
+                statusMessage.innerText = "Server wakeup latency detected. Please tap submit again.";
             } else {
                 statusMessage.innerText = err.message || "Unable to contact secure background microservice.";
             }
@@ -140,6 +140,7 @@
         }
     });
 </script>
+
 </body>
     </html>
 
