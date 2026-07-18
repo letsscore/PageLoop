@@ -3,33 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PageLoop - Welcome</title>
+    <title>PageLoop - Academic Hub</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8fafc; color: #1e293b; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .welcome-card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; max-width: 450px; width: 100%; }
-        h1 { color: #4f46e5; font-size: 32px; margin-bottom: 10px; }
-        p { color: #64748b; font-size: 15px; margin-bottom: 30px; line-height: 1.6; }
-        .btn-link { display: block; padding: 14px; margin-bottom: 15px; border-radius: 8px; font-weight: bold; font-size: 16px; text-decoration: none; text-align: center; transition: all 0.2s; }
-        .btn-primary { background: #4f46e5; color: white; box-shadow: 0 4px 12px rgba(79,70,229,0.25); }
-        .btn-primary:hover { background: #4338ca; }
-        .btn-secondary { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
-        .btn-secondary:hover { background: #e2e8f0; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: #f8fafc; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0; overflow-x: hidden; }
+        .hero-section { text-align: center; max-width: 800px; padding: 20px; z-index: 2; }
+        h1 { font-size: 3.5rem; margin: 0; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; letter-spacing: -1px; }
+        p { color: #94a3b8; font-size: 1.2rem; line-height: 1.6; max-width: 550px; margin: 15px auto 40px auto; }
+        
+        /* --- 3D ROTATING QUOTES MATRIX --- */
+        .scene { width: 100%; height: 60px; perspective: 400px; margin-bottom: 40px; }
+        .cube { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; animation: rotateCube 12s infinite ease-in-out; }
+        .cube-face { position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 600; font-style: italic; color: #38bdf8; backface-visibility: hidden; text-shadow: 0 0 10px rgba(56,189,248,0.3); }
+        .face1 { transform: rotateX(0deg) translateZ(30px); }
+        .face2 { transform: rotateX(90deg) translateZ(30px); color: #a78bfa; }
+        .face3 { transform: rotateX(180deg) translateZ(30px); color: #f472b6; }
+        .face4 { transform: rotateX(-90deg) translateZ(30px); color: #34d399; }
+        @keyframes rotateCube {
+            0%, 20% { transform: rotateX(0deg); }
+            25%, 45% { transform: rotateX(-90deg); }
+            50%, 70% { transform: rotateX(-180deg); }
+            75%, 95% { transform: rotateX(-270deg); }
+            100% { transform: rotateX(-360deg); }
+        }
+
+        .cta-group { display: flex; gap: 20px; justify-content: center; }
+        .btn { padding: 14px 32px; border-radius: 8px; font-weight: bold; font-size: 1rem; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .btn-primary { background: #4f46e5; color: white; border: 1px solid #6366f1; }
+        .btn-primary:hover { background: #4338ca; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(79,70,229,0.4); }
+        .btn-secondary { background: rgba(255,255,255,0.05); color: #f8fafc; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
     </style>
 </head>
 <body>
 
-<div class="welcome-card">
+<div class="hero-section">
     <h1>PageLoop</h1>
-    <p>The academic resource exchange hub. Trade verified textbooks, comprehensive study materials, and curriculum notes instantly.</p>
     
-    <a href="login.html" class="btn-link btn-primary">Enter Access Portal</a>
-    <a href="about.html" class="btn-link btn-secondary">Learn How It Works</a>
+    <!-- Dynamic 3D Quote Component -->
+    <div class="scene">
+        <div class="cube">
+            <div class="cube-face face1">"Knowledge grows when shared peer-to-peer."</div>
+            <div class="cube-face face2">"Premium study notes, simplified transactions."</div>
+            <div class="cube-face face3">"Empowering academic exchange across limits."</div>
+            <div class="cube-face face4">"Verified resources. Secure gateway deployment."</div>
+        </div>
+    </div>
+    
+    <p>Upload comprehensive study guides, curriculum reference material, or buy textbooks instantly from verified peers.</p>
+    
+    <div class="cta-group">
+        <a href="login.html" class="btn btn-primary">Launch Access Portal</a>
+        <a href="about.html" class="btn btn-secondary">Learn Engine Architecture</a>
+    </div>
 </div>
 
 </body>
 </html>
-
-
-
-
-    
