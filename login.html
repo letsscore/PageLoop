@@ -1,281 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PageLoop - Access Gateway</title>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playpen+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-color: #5C59E8;
-      --bg-color: #F8FAFC;
-      --input-bg: #EBF2FE;
-      --text-dark: #1E293B;
-      --text-muted: #64748B;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: var(--bg-color);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      font-family: 'Playpen Sans', cursive, sans-serif;
-    }
-    .card {
-      background: #ffffff;
-      padding: 40px 30px;
-      border-radius: 32px;
-      width: 100%;
-      max-width: 440px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-    }
-    h1 {
-      font-family: 'Caveat', cursive;
-      font-size: 52px;
-      color: #111827;
-      text-align: center;
-      margin-bottom: 12px;
-    }
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 15px;
-      text-align: center;
-      line-height: 1.5;
-      margin-bottom: 35px;
-    }
-    .form-group { margin-bottom: 22px; }
-    .form-row { display: flex; gap: 15px; margin-bottom: 22px; }
-    .form-row .form-group { flex: 1; margin-bottom: 0; }
-    label {
-      display: block;
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: var(--text-dark);
-    }
-    input, select {
-      width: 100%;
-      padding: 14px 18px;
-      border: 1px solid #E2E8F0;
-      border-radius: 16px;
-      background-color: var(--input-bg);
-      color: var(--text-dark);
-      font-family: 'Caveat', cursive;
-      font-size: 20px;
-      outline: none;
-      transition: all 0.2s ease;
-    }
-    input:focus, select:focus {
-      border-color: var(--primary-color);
-      background-color: #ffffff;
-    }
-    .otp-row { display: flex; gap: 12px; }
-    .otp-row input { flex: 1.3; }
-    .send-btn {
-      flex: 0.7;
-      background: #E2E8F0;
-      border: none;
-      border-radius: 16px;
-      font-family: 'Caveat', cursive;
-      font-size: 22px;
-      color: var(--text-dark);
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .send-btn:hover { background: #CBD5E1; }
-    .submit-btn {
-      width: 100%;
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 16px;
-      border-radius: 18px;
-      font-family: 'Caveat', cursive;
-      font-size: 24px;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: opacity 0.2s;
-    }
-    .submit-btn:hover { opacity: 0.9; }
-    .feedback { font-size: 14px; margin-top: 6px; font-weight: 600; display: none; }
-    .feedback.success { color: #16A34A; display: block; }
-    .feedback.error { color: #DC2626; display: block; }
-    
-    .switch-link {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 14px;
-    }
-    .switch-link a {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageLoop - Access Portal</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .form-container { background: #ffffff; padding: 35px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); width: 100%; max-width: 440px; }
+        h2 { text-align: center; color: #1e293b; margin-bottom: 25px; font-size: 24px; }
+        .input-group { margin-bottom: 18px; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; color: #475569; font-size: 14px; }
+        input, select { width: 100%; padding: 11px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 14px; color: #334155; }
+        input:focus, select:focus { outline: none; border-color: #4f46e5; }
+        button { width: 100%; padding: 12px; background: #4f46e5; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.2s; margin-top: 10px; }
+        button:hover { background: #4338ca; }
+        button:disabled { background: #94a3b8; cursor: not-allowed; }
+        .status-msg { text-align: center; margin-top: 15px; font-weight: 600; font-size: 14px; }
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+    </style>
 </head>
 <body>
 
-  <div class="card">
-    <h1>Access Gateway</h1>
-    <div class="subtitle">Verify your identity securely to enter your personalized dashboard.</div>
-
-    <form id="publicForm">
-      <!-- Re-added to ensure data properties map correctly during fetch -->
-      <div class="form-group">
-        <label>Account Type / Destination</label>
-        <select id="accountType">
-          <option value="buyer.html">Buyer Portal</option>
-          <option value="seller.html">Seller Portal</option>
-        </select>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" id="fullName" placeholder="e.g. Abidur" required>
+<div class="form-container">
+    <h2>Access Portal</h2>
+    <form id="accessForm">
+        <div class="input-group">
+            <label>Account Destination</label>
+            <select id="accountType" required>
+                <option value="Student Dashboard">Student Dashboard / Buyer</option>
+                <option value="Seller Portal">Seller Portal</option>
+            </select>
         </div>
-        <div class="form-group">
-          <label>Date of Birth</label>
-          <input type="date" id="dob" required>
-        </div>
-      </div>
 
-      <div class="form-group">
-        <label>Email Address</label>
-        <div class="otp-row">
-          <input type="email" id="email" placeholder="name@domain.com" required>
-          <button type="button" id="sendOtpBtn" class="send-btn">Send OTP</button>
+        <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" id="fullName" placeholder="Enter full name" required>
         </div>
-        <div id="otpFeedback" class="feedback"></div>
-      </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label>Verification OTP</label>
-          <input type="text" id="otpInput" placeholder="Enter OTP" maxlength="6" required>
+        <div class="input-group">
+            <label>Date of Birth</label>
+            <input type="date" id="dob" required>
         </div>
-        <div class="form-group">
-          <label>PIN Code</label>
-          <input type="text" id="pinCode" placeholder="e.g. 785640" required>
+
+        <div class="input-group">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="name@domain.com" required>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label>Academic Status</label>
-        <select id="academicStatus">
-          <option value="Student">Student</option>
-          <option value="Professional">Professional</option>
-        </select>
-      </div>
+        <div class="input-group">
+            <label>PIN Code</label>
+            <input type="text" id="pinCode" placeholder="6-digit regional PIN" required>
+        </div>
 
-      <button type="submit" class="submit-btn">Authenticate Secure Access</button>
-      <div id="publicFeedback" class="feedback"></div>
+        <div class="input-group">
+            <label>Academic Status</label>
+            <select id="academicStatus" required>
+                <option value="Student">Student</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Graduate">Graduate</option>
+            </select>
+        </div>
+
+        <button type="submit" id="submitBtn">Access Platform</button>
     </form>
+    <div id="statusMessage" class="status-msg"></div>
+</div>
 
-    <div class="switch-link">
-      <a href="staff.html" style="color: var(--primary-color);">Go to Staff/Admin Portal →</a><br><br>
-      <a href="index.html" style="color: #64748B; font-size: 13px;">← Back to Homepage</a>
-    </div>
-  </div>
+<script>
+    const BACKEND_URL = "https://pageloop-backend.onrender.com";
 
-  <script>
-    const BACKEND_URL = 'https://pageloop-backend.onrender.com';
-    
-    const publicForm = document.getElementById('publicForm');
-    const sendOtpBtn = document.getElementById('sendOtpBtn');
-    const otpFeedback = document.getElementById('otpFeedback');
-    const publicFeedback = document.getElementById('publicFeedback');
+    document.getElementById('accessForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submitBtn');
+        const statusMessage = document.getElementById('statusMessage');
 
-    sendOtpBtn.addEventListener('click', async () => {
-      const email = document.getElementById('email').value;
-      if (!email) {
-        showFeedback(otpFeedback, 'Email address is required.', 'error');
-        return;
-      }
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Authenticating profile...";
+        statusMessage.className = "status-msg";
+        statusMessage.innerText = "";
 
-      sendOtpBtn.disabled = true;
-      sendOtpBtn.textContent = 'Sending...';
-      showFeedback(otpFeedback, 'Sending code to inbox...', 'success');
-
-      try {
-        const response = await fetch(`${BACKEND_URL}/api/send-otp`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email,
+        const payload = {
+            accountType: document.getElementById('accountType').value,
             fullName: document.getElementById('fullName').value,
             dob: document.getElementById('dob').value,
-            pinCode: document.getElementById('pinCode').value,
-            academicStatus: document.getElementById('academicStatus').value,
-            accountType: document.getElementById('accountType').value
-          })
-        });
-        
-        const data = await response.json();
-        if (data.success) {
-          showFeedback(otpFeedback, 'OTP sent! Check your inbox.', 'success');
-          let cooldown = 60;
-          const interval = setInterval(() => {
-            cooldown--;
-            sendOtpBtn.textContent = `Wait (${cooldown}s)`;
-            if (cooldown <= 0) {
-              clearInterval(interval);
-              sendOtpBtn.disabled = false;
-              sendOtpBtn.textContent = 'Send OTP';
-            }
-          }, 1000);
-        } else {
-          showFeedback(otpFeedback, 'Failed sending OTP. Try again.', 'error');
-          sendOtpBtn.disabled = false;
-          sendOtpBtn.textContent = 'Send OTP';
-        }
-      } catch (err) {
-        showFeedback(otpFeedback, 'Could not connect to service.', 'error');
-        sendOtpBtn.disabled = false;
-        sendOtpBtn.textContent = 'Send OTP';
-      }
-    });
-
-    publicForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      showFeedback(publicFeedback, 'Verifying code...', 'success');
-
-      try {
-        const response = await fetch(`${BACKEND_URL}/api/verify-otp`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
             email: document.getElementById('email').value,
-            otp: document.getElementById('otpInput').value
-          })
-        });
+            pinCode: document.getElementById('pinCode').value,
+            academicStatus: document.getElementById('academicStatus').value
+        };
 
-        const data = await response.json();
-        if (data.success) {
-          showFeedback(publicFeedback, 'Authorized! Redirecting...', 'success');
-          
-          const targetPage = document.getElementById('accountType').value; 
-          setTimeout(() => {
-            window.location.href = targetPage;
-          }, 1000);
-          
-        } else {
-          showFeedback(publicFeedback, 'Invalid OTP or expiration limit reached.', 'error');
+        try {
+            const response = await fetch(`${BACKEND_URL}/api/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                statusMessage.className = "status-msg success";
+                statusMessage.innerText = "Authorized successfully! Redirecting...";
+                
+                localStorage.setItem('userEmail', data.email);
+
+                // SYSTEM DIRECTORY TRAFFIC DEPLOYMENT ROUTING
+                if (data.accountType === "Seller Portal") {
+                    if (!data.isPlatformPaid) {
+                        setTimeout(() => { window.location.href = "payment.html"; }, 1200);
+                    } else {
+                        setTimeout(() => { window.location.href = "seller.html"; }, 1200);
+                    }
+                } else {
+                    setTimeout(() => { window.location.href = "buyer.html"; }, 1200);
+                }
+            } else {
+                throw new Error(data.message || "Database profile registration refused.");
+            }
+
+        } catch (err) {
+            statusMessage.className = "status-msg error";
+            statusMessage.innerText = err.message || "Unable to contact secure background microservice.";
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Access Platform";
         }
-      } catch (err) {
-        showFeedback(publicFeedback, 'Authentication communication error.', 'error');
-      }
     });
-
-    function showFeedback(element, message, type) {
-      element.textContent = message;
-      element.className = `feedback ${type}`;
-    }
-  </script>
+</script>
 </body>
 </html>
+
 
 
 
