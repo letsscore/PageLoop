@@ -49,6 +49,7 @@
             return;
         }
 
+        // FIX: Replaced single quotes with backticks for dynamic email string injection
         document.getElementById('sellerEmail').innerText = `Managing Store: ${email}`;
 
         try {
@@ -59,6 +60,7 @@
             });
             const data = await response.json();
 
+            // Guardrail redirection check
             if (!data.success || data.accountType !== "Seller Portal" || !data.isPlatformPaid) {
                 alert("Security Intercept: Account configuration requires active platform activation fee clearance.");
                 window.location.href = "payment.html";
@@ -68,6 +70,7 @@
         }
     });
 </script>
+
 </body>
 </html>
 
