@@ -1,194 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seller Control Center - PageLoop</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    /* Platform Payment Gate Modal Design */
-    .pay-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.95);
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-    .pay-card {
-      background: #ffffff;
-      padding: 40px 30px;
-      border-radius: 28px;
-      max-width: 420px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    }
-    .pay-icon {
-      font-size: 50px;
-      color: #5C59E8;
-      margin-bottom: 15px;
-    }
-    .pay-title {
-      font-size: 24px;
-      font-weight: 700;
-      color: #1E293B;
-      margin-bottom: 10px;
-    }
-    .pay-desc {
-      font-size: 14px;
-      color: #64748B;
-      line-height: 1.6;
-      margin-bottom: 25px;
-    }
-    .amount-badge {
-      display: inline-block;
-      background: #EBF2FE;
-      color: #5C59E8;
-      font-weight: 800;
-      font-size: 32px;
-      padding: 10px 25px;
-      border-radius: 18px;
-      margin-bottom: 25px;
-    }
-    .pay-btn {
-      width: 100%;
-      background: #5C59E8;
-      color: white;
-      border: none;
-      padding: 16px;
-      border-radius: 16px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .pay-btn:hover { background: #4A47D1; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageLoop - Seller Management Desk</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8fafc; margin: 0; padding: 20px; color: #1e293b; }
+        .dashboard-container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { color: #1e1b4b; margin: 0; font-size: 26px; }
+        .badge-active { background: #dcfce7; color: #15803d; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 13px; }
+        .upload-box { background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 8px; padding: 25px; text-align: center; cursor: pointer; transition: border 0.2s; }
+        .upload-box:hover { border-color: #4f46e5; }
+        .btn-action { background: #4f46e5; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .btn-action:hover { background: #4338ca; }
+    </style>
 </head>
 <body>
 
-  <!-- Platform Charge Gate View Modal Overlay -->
-  <div class="pay-overlay" id="paymentOverlay">
-    <div class="pay-card">
-      <div class="pay-icon">💳</div>
-      <div class="pay-title">Activate Seller Registry</div>
-      <div class="pay-desc">To unlock the marketplace and host your listings for potential buyers, a one-time platform maintenance activation fee is required.</div>
-      <div class="amount-badge">₹30</div>
-      <button class="pay-btn" id="payChargeBtn">Pay Activation Fee</button>
-    </div>
-  </div>
-
-  <header class="navbar">
-    <div class="nav-container">
-      <div class="logo">🌀 PageLoop <span class="badge-role">Seller</span></div>
-      <div class="user-profile">
-        <span id="sellerNameBadge" class="username-pill">Verified Seller</span>
-        <button class="btn btn-dark btn-sm" id="logoutBtn">Log Out</button>
-      </div>
-    </div>
-  </header>
-
-  <main class="container">
-    <div class="seller-layout">
-      
-      <!-- Left Panel: Create Listing -->
-      <section class="seller-card-form">
-        <h3>Post New Material</h3>
-        <p class="section-desc">Create listings to let buyers locate your materials near their area.</p>
-
-        <form id="listingSubmissionForm">
-          <div class="form-group">
-            <label for="itemTitle">Item / Book Title</label>
-            <input type="text" id="itemTitle" placeholder="e.g. Wave Mechanics & Optics Guide" required>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="itemType">Category Type</label>
-              <select id="itemType" required>
-                <option value="notes">Lecture Notes</option>
-                <option value="book">Textbook</option>
-                <option value="guide">Reference Guide</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="academicTier">Academic Level</label>
-              <select id="academicTier" required>
-                <option value="School">School Level</option>
-                <option value="College">College Level</option>
-                <option value="University">University Level</option>
-                <option value="Competitive">Competitive Prep</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="itemAction">Listing Action Type</label>
-              <select id="itemAction" required>
-                <option value="sell">Sell Directly</option>
-                <option value="donate">Free Donation / Recycle</option>
-              </select>
-            </div>
-
-            <div class="form-group" id="priceInputGroup">
-              <label for="basePrice">Base Price (INR)</label>
-              <input type="number" id="basePrice" min="0" placeholder="e.g. 180">
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn-primary btn-block">Publish Listing to Registry</button>
-        </form>
-      </section>
-
-      <!-- Right Panel: Match Escrows -->
-      <aside class="seller-notifications">
-        <h3>Active Watching Alerts</h3>
-        <p class="section-desc">Secured matching requests initiated by buyers for your material.</p>
-        <div id="matchingEscrowsList" class="notification-container">
-          <p class="no-activity">No current match transactions waiting.</p>
+<div class="dashboard-container">
+    <div class="header">
+        <div>
+            <h1>Seller Material Desk</h1>
+            <p id="sellerEmail" style="color: #64748b; margin: 5px 0 0 0; font-size: 14px;"></p>
         </div>
-      </aside>
-
+        <span class="badge-active">Profile Status: Active Verified</span>
     </div>
-  </main>
 
-  <script>
-    const overlay = document.getElementById('paymentOverlay');
-    const payBtn = document.getElementById('payChargeBtn');
-    const submissionForm = document.getElementById('listingSubmissionForm');
+    <h3>List Academic Material</h3>
+    <div class="upload-box" id="uploadTrigger">
+        <p style="margin: 0 0 10px 0; font-weight: 600; color: #475569;">Drag & Drop Textbooks, Course Materials, or PDF Lecture Notes Here</p>
+        <p style="margin: 0; font-size: 12px; color: #94a3b8;">Supports PDF, JPEG, PNG formats (Max 25MB)</p>
+    </div>
+    
+    <div style="margin-top:25px; text-align: right;">
+        <button class="btn-action" onclick="alert('Form listing processing module triggered successfully.')">Publish New Listing</button>
+    </div>
+</div>
 
-    // Simulate Payment Handling Action
-    payBtn.addEventListener('click', () => {
-      payBtn.textContent = 'Processing Payment...';
-      payBtn.disabled = true;
+<script>
+    window.addEventListener('DOMContentLoaded', async () => {
+        const email = localStorage.getItem('userEmail');
+        const BACKEND_URL = "https://pageloop-backend.onrender.com";
 
-      setTimeout(() => {
-        alert('Payment of ₹30 Received Successfully! Dashboard unlocked.');
-        overlay.style.display = 'none'; // Closes the payment barrier modal
-      }, 1500);
+        if (!email) {
+            alert("Security Intercept: Authentication registry context token missing. Returning to entry page.");
+            window.location.href = "login.html";
+            return;
+        }
+
+        document.getElementById('sellerEmail').innerText = `Managing Store: ${email}`;
+
+        try {
+            const response = await fetch(`${BACKEND_URL}/api/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            });
+            const data = await response.json();
+
+            if (!data.success || data.accountType !== "Seller Portal" || !data.isPlatformPaid) {
+                alert("Security Intercept: Account configuration requires active platform activation fee clearance.");
+                window.location.href = "payment.html";
+            }
+        } catch (err) {
+            console.error("Dashboard security state evaluation bypassed/interrupted by engine error.", err);
+        }
     });
-
-    // Handle Form Material Listing Publishing
-    submissionForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const title = document.getElementById('itemTitle').value;
-      const price = document.getElementById('basePrice').value || '0';
-
-      alert(`Success! "${title}" listed perfectly for ₹${price}.`);
-      submissionForm.reset();
-    });
-
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      window.location.href = 'index.html';
-    });
-  </script>
+</script>
 </body>
-                  </html>
-                  
+</html>
+
